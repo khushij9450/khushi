@@ -1,184 +1,154 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
-import { ExternalLink, Github, Eye, Code2, Layers, Award } from 'lucide-react';
+import { ExternalLink, Github, Eye, Code2, Layers, Award, Terminal, Cpu, Database, Cloud, Brain, Zap } from 'lucide-react';
 
 const Portfolio: React.FC = () => {
   const [activeTab, setActiveTab] = useState('projects');
 
   const projects = [
     {
-      name: "Car Rent",
-      description: "Simplify your car rental experience with our streamlined platform. Find, book, and manage your vehicle rentals with ease.",
+      name: "AI-Powered Analytics",
+      description: "Machine learning platform for real-time data analysis with neural network visualization and predictive modeling capabilities.",
       tags: [
-        {
-          name: "react",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "mongodb",
-          color: "green-text-gradient",
-        },
-        {
-          name: "tailwind",
-          color: "pink-text-gradient",
-        },
-      ],
-      image: "https://images.pexels.com/photos/116675/pexels-photo-116675.jpeg?auto=compress&cs=tinysrgb&w=800",
-      source_code_link: "https://github.com/",
-      live_demo_link: "https://example.com/",
-    },
-    {
-      name: "Job IT",
-      description: "Web application that enables users to search for job openings, view detailed job descriptions, and apply for positions.",
-      tags: [
-        {
-          name: "react",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "restapi",
-          color: "green-text-gradient",
-        },
-        {
-          name: "scss",
-          color: "pink-text-gradient",
-        },
-      ],
-      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
-      source_code_link: "https://github.com/",
-      live_demo_link: "https://example.com/",
-    },
-    {
-      name: "Trip Guide",
-      description: "A comprehensive travel booking platform that allows users to book flights, hotels, and rental cars, and manage their trips.",
-      tags: [
-        {
-          name: "nextjs",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "supabase",
-          color: "green-text-gradient",
-        },
-        {
-          name: "css",
-          color: "pink-text-gradient",
-        },
-      ],
-      image: "https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=800",
-      source_code_link: "https://github.com/",
-      live_demo_link: "https://example.com/",
-    },
-    {
-      name: "AI Summarizer",
-      description: "An AI-powered article summarizer that transforms lengthy articles into clear and concise summaries using OpenAI GPT-4.",
-      tags: [
-        {
-          name: "react",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "openai",
-          color: "green-text-gradient",
-        },
-        {
-          name: "tailwind",
-          color: "pink-text-gradient",
-        },
+        { name: "tensorflow", color: "blue-text-gradient" },
+        { name: "python", color: "green-text-gradient" },
+        { name: "kubernetes", color: "pink-text-gradient" },
       ],
       image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800",
       source_code_link: "https://github.com/",
       live_demo_link: "https://example.com/",
+      category: "AI/ML"
     },
     {
-      name: "Crypto Tracker",
-      description: "Real-time cryptocurrency price tracking and portfolio management with advanced charts and market analysis.",
+      name: "Quantum Computing Simulator",
+      description: "Web-based quantum circuit simulator with real-time visualization of quantum states and gate operations.",
       tags: [
-        {
-          name: "vue",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "firebase",
-          color: "green-text-gradient",
-        },
-        {
-          name: "chartjs",
-          color: "pink-text-gradient",
-        },
+        { name: "qiskit", color: "blue-text-gradient" },
+        { name: "react", color: "green-text-gradient" },
+        { name: "webgl", color: "pink-text-gradient" },
+      ],
+      image: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800",
+      source_code_link: "https://github.com/",
+      live_demo_link: "https://example.com/",
+      category: "Quantum"
+    },
+    {
+      name: "Blockchain DeFi Platform",
+      description: "Decentralized finance platform with smart contracts, yield farming, and automated market making protocols.",
+      tags: [
+        { name: "solidity", color: "blue-text-gradient" },
+        { name: "web3", color: "green-text-gradient" },
+        { name: "ethereum", color: "pink-text-gradient" },
       ],
       image: "https://images.pexels.com/photos/844124/pexels-photo-844124.jpeg?auto=compress&cs=tinysrgb&w=800",
       source_code_link: "https://github.com/",
       live_demo_link: "https://example.com/",
+      category: "Blockchain"
     },
     {
-      name: "Social Media Dashboard",
-      description: "Analytics dashboard for social media management with real-time data visualization and engagement metrics.",
+      name: "Cloud-Native Microservices",
+      description: "Scalable microservices architecture with container orchestration, service mesh, and observability stack.",
       tags: [
-        {
-          name: "react",
-          color: "blue-text-gradient",
-        },
-        {
-          name: "nodejs",
-          color: "green-text-gradient",
-        },
-        {
-          name: "mongodb",
-          color: "pink-text-gradient",
-        },
+        { name: "kubernetes", color: "blue-text-gradient" },
+        { name: "docker", color: "green-text-gradient" },
+        { name: "istio", color: "pink-text-gradient" },
+      ],
+      image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
+      source_code_link: "https://github.com/",
+      live_demo_link: "https://example.com/",
+      category: "Cloud"
+    },
+    {
+      name: "Neural Network Visualizer",
+      description: "Interactive 3D visualization of deep learning models with real-time training progress and layer analysis.",
+      tags: [
+        { name: "threejs", color: "blue-text-gradient" },
+        { name: "pytorch", color: "green-text-gradient" },
+        { name: "webgl", color: "pink-text-gradient" },
       ],
       image: "https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg?auto=compress&cs=tinysrgb&w=800",
       source_code_link: "https://github.com/",
       live_demo_link: "https://example.com/",
+      category: "AI/ML"
+    },
+    {
+      name: "Edge Computing IoT Hub",
+      description: "Real-time IoT data processing platform with edge computing capabilities and predictive maintenance algorithms.",
+      tags: [
+        { name: "golang", color: "blue-text-gradient" },
+        { name: "mqtt", color: "green-text-gradient" },
+        { name: "tensorflow-lite", color: "pink-text-gradient" },
+      ],
+      image: "https://images.pexels.com/photos/346885/pexels-photo-346885.jpeg?auto=compress&cs=tinysrgb&w=800",
+      source_code_link: "https://github.com/",
+      live_demo_link: "https://example.com/",
+      category: "IoT"
     },
   ];
 
   const techStack = [
-    { name: 'React', level: 95, color: 'from-blue-400 to-blue-600' },
-    { name: 'TypeScript', level: 90, color: 'from-blue-500 to-blue-700' },
-    { name: 'Node.js', level: 85, color: 'from-green-400 to-green-600' },
-    { name: 'Python', level: 80, color: 'from-yellow-400 to-yellow-600' },
-    { name: 'PostgreSQL', level: 85, color: 'from-blue-600 to-blue-800' },
-    { name: 'MongoDB', level: 75, color: 'from-green-500 to-green-700' },
-    { name: 'AWS', level: 70, color: 'from-orange-400 to-orange-600' },
-    { name: 'Docker', level: 75, color: 'from-blue-400 to-blue-600' },
+    { name: 'TensorFlow', level: 95, color: 'from-orange-400 to-orange-600', icon: Brain },
+    { name: 'Kubernetes', level: 90, color: 'from-blue-500 to-blue-700', icon: Cloud },
+    { name: 'React/Next.js', level: 95, color: 'from-cyan-400 to-cyan-600', icon: Code2 },
+    { name: 'Python/Go', level: 88, color: 'from-green-400 to-green-600', icon: Terminal },
+    { name: 'AWS/Azure', level: 85, color: 'from-yellow-400 to-yellow-600', icon: Cloud },
+    { name: 'PostgreSQL', level: 82, color: 'from-blue-600 to-blue-800', icon: Database },
+    { name: 'Docker', level: 90, color: 'from-blue-400 to-blue-600', icon: Layers },
+    { name: 'Blockchain', level: 75, color: 'from-purple-400 to-purple-600', icon: Zap },
   ];
 
   const certificates = [
     {
-      title: 'AWS Certified Solutions Architect',
+      title: 'AWS Solutions Architect Professional',
       issuer: 'Amazon Web Services',
-      date: '2023',
-      icon: Award
+      date: '2024',
+      icon: Cloud,
+      level: 'Professional'
     },
     {
-      title: 'Google Cloud Professional Developer',
+      title: 'Google Cloud ML Engineer',
       issuer: 'Google Cloud',
+      date: '2024',
+      icon: Brain,
+      level: 'Professional'
+    },
+    {
+      title: 'Certified Kubernetes Administrator',
+      issuer: 'Cloud Native Computing Foundation',
       date: '2023',
-      icon: Award
+      icon: Layers,
+      level: 'Expert'
     },
     {
-      title: 'Meta React Developer Certificate',
-      issuer: 'Meta',
-      date: '2022',
-      icon: Award
+      title: 'TensorFlow Developer Certificate',
+      issuer: 'TensorFlow',
+      date: '2023',
+      icon: Brain,
+      level: 'Specialist'
     },
     {
-      title: 'MongoDB Certified Developer',
-      issuer: 'MongoDB University',
-      date: '2022',
-      icon: Award
+      title: 'Ethereum Developer Certification',
+      issuer: 'ConsenSys Academy',
+      date: '2023',
+      icon: Zap,
+      level: 'Advanced'
+    },
+    {
+      title: 'Quantum Computing Fundamentals',
+      issuer: 'IBM Qiskit',
+      date: '2024',
+      icon: Cpu,
+      level: 'Emerging Tech'
     }
   ];
 
   const tabs = [
     { id: 'projects', label: 'Projects', icon: Code2 },
     { id: 'techstack', label: 'Tech Stack', icon: Layers },
-    { id: 'certificates', label: 'Certificates', icon: Award }
+    { id: 'certificates', label: 'Certifications', icon: Award }
   ];
 
-  // Pin animation component with perfect alignment and enhanced translucency
+  // Enhanced ProjectCard with futuristic design
   const ProjectCard = ({ project, index }: { project: any; index: number }) => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -213,30 +183,60 @@ const Portfolio: React.FC = () => {
             stiffness: 300, 
             damping: 20 
           }}
-          className="relative w-full h-[480px] bg-slate-800/30 backdrop-blur-xl rounded-[20px] p-5 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 overflow-hidden"
+          className="relative w-full h-[500px] bg-slate-900/40 backdrop-blur-xl rounded-[20px] p-5 border border-cyan-500/30 hover:border-cyan-400/60 transition-all duration-500 overflow-hidden"
           style={{
             transformStyle: "preserve-3d",
             perspective: "1000px"
           }}
         >
-          {/* Pin effect - small circle at top */}
+          {/* Tech grid background */}
+          <div className="absolute inset-0 opacity-10">
+            <div className="grid grid-cols-6 grid-rows-6 h-full w-full">
+              {[...Array(36)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="border border-cyan-400/20"
+                  animate={{
+                    opacity: [0.1, 0.3, 0.1],
+                  }}
+                  transition={{
+                    duration: 2,
+                    repeat: Infinity,
+                    delay: Math.random() * 2
+                  }}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Category badge */}
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ delay: index * 0.1 + 0.2, duration: 0.5 }}
+            className="absolute top-3 left-3 bg-gradient-to-r from-cyan-500/80 to-purple-500/80 text-white px-3 py-1 rounded-full text-xs font-mono z-20"
+          >
+            {project.category}
+          </motion.div>
+          
+          {/* Holographic pin effect */}
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ delay: index * 0.1 + 0.3, duration: 0.5 }}
-            className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full shadow-lg z-20"
+            className="absolute -top-2 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full shadow-lg z-20"
           />
           
-          {/* Pin shadow */}
+          {/* Pin shadow with glow */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: index * 0.1 + 0.4, duration: 0.5 }}
-            className="absolute top-1 left-1/2 transform -translate-x-1/2 w-2 h-8 bg-gradient-to-b from-purple-400/30 to-transparent rounded-full blur-sm z-10"
+            className="absolute top-1 left-1/2 transform -translate-x-1/2 w-2 h-8 bg-gradient-to-b from-cyan-400/40 to-transparent rounded-full blur-sm z-10"
           />
 
-          {/* Image container */}
-          <div className="relative w-full h-[230px] rounded-[15px] overflow-hidden mb-4">
+          {/* Image container with tech overlay */}
+          <div className="relative w-full h-[240px] rounded-[15px] overflow-hidden mb-4 mt-4">
             <motion.img
               src={project.image}
               alt={project.name}
@@ -245,10 +245,23 @@ const Portfolio: React.FC = () => {
               transition={{ duration: 0.6 }}
             />
             
-            {/* Enhanced gradient overlay with more transparency */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
+            {/* Tech overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
             
-            {/* Floating action buttons - Always visible on hover */}
+            {/* Scanning line */}
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/30 to-transparent h-1"
+              animate={{
+                y: ['-10%', '110%']
+              }}
+              transition={{
+                duration: 3,
+                repeat: Infinity,
+                ease: "linear"
+              }}
+            />
+            
+            {/* Action buttons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileHover={{ opacity: 1, y: 0 }}
@@ -261,7 +274,7 @@ const Portfolio: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 360 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-10 h-10 bg-slate-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-purple-500/60 transition-all duration-300 border border-white/20"
+                className="w-10 h-10 bg-slate-900/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-cyan-500/60 transition-all duration-300 border border-cyan-400/30"
               >
                 <Github size={16} />
               </motion.a>
@@ -271,7 +284,7 @@ const Portfolio: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: -360 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-10 h-10 bg-slate-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-pink-500/60 transition-all duration-300 border border-white/20"
+                className="w-10 h-10 bg-slate-900/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-purple-500/60 transition-all duration-300 border border-purple-400/30"
               >
                 <ExternalLink size={16} />
               </motion.a>
@@ -284,7 +297,7 @@ const Portfolio: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
-              className="text-white font-bold text-[24px] mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-purple-400 group-hover:to-pink-400 group-hover:bg-clip-text transition-all duration-300"
+              className="text-white font-bold text-[22px] mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-cyan-400 group-hover:to-purple-400 group-hover:bg-clip-text transition-all duration-300 font-mono"
             >
               {project.name}
             </motion.h3>
@@ -293,12 +306,12 @@ const Portfolio: React.FC = () => {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.6, duration: 0.5 }}
-              className="text-gray-300 text-[14px] leading-[20px] mb-4"
+              className="text-gray-300 text-[14px] leading-[20px] mb-4 font-mono"
             >
               {project.description}
             </motion.p>
 
-            {/* Tags */}
+            {/* Enhanced tags */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
@@ -312,12 +325,12 @@ const Portfolio: React.FC = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: index * 0.1 + tagIndex * 0.1 + 0.8, duration: 0.3 }}
                   whileHover={{ scale: 1.1 }}
-                  className={`text-[14px] font-medium cursor-pointer transition-all duration-300 ${
+                  className={`text-[12px] font-medium cursor-pointer transition-all duration-300 px-2 py-1 rounded-full border font-mono ${
                     tag.color === 'blue-text-gradient' 
-                      ? 'text-blue-400 hover:text-blue-300' 
+                      ? 'text-cyan-400 hover:text-cyan-300 border-cyan-400/30 bg-cyan-400/10' 
                       : tag.color === 'green-text-gradient'
-                      ? 'text-green-400 hover:text-green-300'
-                      : 'text-pink-400 hover:text-pink-300'
+                      ? 'text-green-400 hover:text-green-300 border-green-400/30 bg-green-400/10'
+                      : 'text-purple-400 hover:text-purple-300 border-purple-400/30 bg-purple-400/10'
                   }`}
                 >
                   #{tag.name}
@@ -325,12 +338,12 @@ const Portfolio: React.FC = () => {
               ))}
             </motion.div>
 
-            {/* Bottom Action Buttons - Always visible */}
+            {/* Enhanced bottom actions */}
             <motion.div
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 + 0.9, duration: 0.5 }}
-              className="flex items-center justify-between pt-4 border-t border-purple-500/20"
+              className="flex items-center justify-between pt-4 border-t border-cyan-500/20"
             >
               <motion.a
                 href={project.source_code_link}
@@ -338,7 +351,7 @@ const Portfolio: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05, x: 5 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center space-x-2 text-gray-400 hover:text-white transition-all duration-300 group/link"
+                className="flex items-center space-x-2 text-gray-400 hover:text-cyan-400 transition-all duration-300 group/link"
               >
                 <motion.div
                   whileHover={{ rotate: 360 }}
@@ -346,7 +359,7 @@ const Portfolio: React.FC = () => {
                 >
                   <Github size={18} />
                 </motion.div>
-                <span className="text-sm font-medium group-hover/link:text-purple-400">GitHub</span>
+                <span className="text-sm font-medium font-mono">Source</span>
               </motion.a>
               
               <motion.a
@@ -355,9 +368,9 @@ const Portfolio: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.05, x: -5 }}
                 whileTap={{ scale: 0.95 }}
-                className="flex items-center space-x-2 text-gray-400 hover:text-white transition-all duration-300 group/link"
+                className="flex items-center space-x-2 text-gray-400 hover:text-purple-400 transition-all duration-300 group/link"
               >
-                <span className="text-sm font-medium group-hover/link:text-pink-400">Live Demo</span>
+                <span className="text-sm font-medium font-mono">Demo</span>
                 <motion.div
                   whileHover={{ rotate: -360 }}
                   transition={{ duration: 0.6 }}
@@ -368,14 +381,14 @@ const Portfolio: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Enhanced animated background gradient with more transparency */}
+          {/* Enhanced animated background */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[20px]"
+            className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-pink-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[20px]"
             animate={{
               background: [
-                'linear-gradient(45deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 50%, rgba(6, 182, 212, 0.1) 100%)',
-                'linear-gradient(45deg, rgba(6, 182, 212, 0.1) 0%, rgba(168, 85, 247, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%)',
-                'linear-gradient(45deg, rgba(236, 72, 153, 0.1) 0%, rgba(6, 182, 212, 0.1) 50%, rgba(168, 85, 247, 0.1) 100%)'
+                'linear-gradient(45deg, rgba(6, 182, 212, 0.05) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(236, 72, 153, 0.05) 100%)',
+                'linear-gradient(45deg, rgba(168, 85, 247, 0.05) 0%, rgba(236, 72, 153, 0.05) 50%, rgba(6, 182, 212, 0.05) 100%)',
+                'linear-gradient(45deg, rgba(236, 72, 153, 0.05) 0%, rgba(6, 182, 212, 0.05) 50%, rgba(168, 85, 247, 0.05) 100%)'
               ]
             }}
             transition={{
@@ -384,12 +397,6 @@ const Portfolio: React.FC = () => {
               ease: "linear"
             }}
           />
-
-          {/* 3D depth effect */}
-          <div 
-            className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-slate-900/10 pointer-events-none rounded-[20px]"
-            style={{ transform: "translateZ(-50px)" }}
-          />
         </motion.div>
       </motion.div>
     );
@@ -397,7 +404,32 @@ const Portfolio: React.FC = () => {
 
   return (
     <section id="portfolio" className="py-20 relative overflow-hidden">
-      <div className="container mx-auto px-6">
+      {/* Tech background */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="grid grid-cols-20 grid-rows-20 h-full w-full">
+          {[...Array(400)].map((_, i) => (
+            <motion.div
+              key={i}
+              className="border border-cyan-400/20"
+              animate={{
+                opacity: [0.1, 0.3, 0.1],
+                borderColor: [
+                  'rgba(6, 182, 212, 0.1)',
+                  'rgba(168, 85, 247, 0.2)',
+                  'rgba(6, 182, 212, 0.1)'
+                ]
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                delay: Math.random() * 2
+              }}
+            />
+          ))}
+        </div>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -405,36 +437,43 @@ const Portfolio: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-20"
         >
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-gray-400 text-lg mb-4 tracking-wider uppercase"
+            className="inline-flex items-center space-x-2 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 backdrop-blur-lg rounded-full px-6 py-3 border border-cyan-500/30 mb-6"
           >
-            My work
-          </motion.p>
+            <Terminal className="text-cyan-400" size={20} />
+            <span className="text-cyan-300 font-mono text-sm">PORTFOLIO.LOAD()</span>
+          </motion.div>
+
           <motion.h2
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-4xl lg:text-6xl font-bold text-white mb-6"
+            className="text-4xl lg:text-6xl font-bold text-white mb-6 font-mono"
           >
-            Projects<span className="text-purple-400">.</span>
+            My{' '}
+            <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              Projects
+            </span>
+            <span className="text-cyan-400">.</span>
           </motion.h2>
+          
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed"
+            className="text-gray-300 text-lg max-w-3xl mx-auto leading-relaxed font-mono"
           >
-            Following projects showcase my skills and experience through real-world examples of my work. Each project is briefly described with links to code repositories and live demos. It reflects my ability to solve complex problems, work with different technologies, and manage projects effectively.
+            Cutting-edge projects showcasing expertise in AI/ML, blockchain, quantum computing, and cloud-native technologies. Each solution pushes the boundaries of what's possible.
           </motion.p>
         </motion.div>
 
-        {/* Tab Navigation with enhanced translucency */}
+        {/* Enhanced Tab Navigation */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -452,10 +491,10 @@ const Portfolio: React.FC = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`flex items-center space-x-2 px-8 py-4 rounded-full mx-2 mb-4 transition-all duration-500 relative overflow-hidden backdrop-blur-xl ${
+              className={`flex items-center space-x-2 px-8 py-4 rounded-full mx-2 mb-4 transition-all duration-500 relative overflow-hidden backdrop-blur-xl font-mono ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white shadow-lg shadow-purple-500/25'
-                  : 'bg-slate-800/30 text-gray-300 hover:bg-slate-700/40 border border-purple-500/20 hover:border-purple-500/40'
+                  ? 'bg-gradient-to-r from-cyan-500/80 to-purple-500/80 text-white shadow-lg shadow-cyan-500/25 border border-cyan-400/50'
+                  : 'bg-slate-900/40 text-gray-300 hover:bg-slate-800/60 border border-cyan-500/20 hover:border-cyan-500/40'
               }`}
             >
               <tab.icon size={20} />
@@ -463,7 +502,7 @@ const Portfolio: React.FC = () => {
               {activeTab === tab.id && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-gradient-to-r from-purple-500/80 to-pink-500/80 -z-10"
+                  className="absolute inset-0 bg-gradient-to-r from-cyan-500/80 to-purple-500/80 -z-10"
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               )}
@@ -472,7 +511,7 @@ const Portfolio: React.FC = () => {
         </motion.div>
 
         <AnimatePresence mode="wait">
-          {/* Projects Tab with Perfect Grid Alignment */}
+          {/* Enhanced Projects Tab */}
           {activeTab === 'projects' && (
             <motion.div
               key="projects"
@@ -483,7 +522,6 @@ const Portfolio: React.FC = () => {
               className="max-w-7xl mx-auto"
               style={{ perspective: "1000px" }}
             >
-              {/* Perfect Grid Layout */}
               <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 place-items-center">
                 {projects.map((project, index) => (
                   <ProjectCard key={project.name} project={project} index={index} />
@@ -492,7 +530,7 @@ const Portfolio: React.FC = () => {
             </motion.div>
           )}
 
-          {/* Tech Stack Tab with enhanced translucency */}
+          {/* Enhanced Tech Stack Tab */}
           {activeTab === 'techstack' && (
             <motion.div
               key="techstack"
@@ -509,19 +547,36 @@ const Portfolio: React.FC = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.8 }}
-                    className="bg-slate-800/30 backdrop-blur-xl rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
+                    className="bg-slate-900/40 backdrop-blur-xl rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 group"
                   >
                     <div className="flex justify-between items-center mb-4">
-                      <h3 className="text-lg font-semibold text-white">{tech.name}</h3>
-                      <span className="text-gray-400">{tech.level}%</span>
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-lg flex items-center justify-center">
+                          <tech.icon className="text-cyan-400" size={20} />
+                        </div>
+                        <h3 className="text-lg font-semibold text-white font-mono">{tech.name}</h3>
+                      </div>
+                      <span className="text-gray-400 font-mono">{tech.level}%</span>
                     </div>
-                    <div className="w-full bg-gray-700/50 rounded-full h-3">
+                    <div className="w-full bg-slate-800/50 rounded-full h-3 overflow-hidden">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${tech.level}%` }}
                         transition={{ delay: index * 0.1 + 0.5, duration: 1 }}
-                        className={`h-3 bg-gradient-to-r ${tech.color} rounded-full`}
-                      />
+                        className={`h-3 bg-gradient-to-r ${tech.color} rounded-full relative overflow-hidden`}
+                      >
+                        <motion.div
+                          animate={{
+                            x: ['-100%', '100%']
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
+                        />
+                      </motion.div>
                     </div>
                   </motion.div>
                 ))}
@@ -529,7 +584,7 @@ const Portfolio: React.FC = () => {
             </motion.div>
           )}
 
-          {/* Certificates Tab with enhanced translucency */}
+          {/* Enhanced Certificates Tab */}
           {activeTab === 'certificates' && (
             <motion.div
               key="certificates"
@@ -537,7 +592,7 @@ const Portfolio: React.FC = () => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.5 }}
-              className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto"
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto"
             >
               {certificates.map((cert, index) => (
                 <motion.div
@@ -545,19 +600,26 @@ const Portfolio: React.FC = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.8 }}
-                  whileHover={{ scale: 1.05 }}
-                  className="bg-slate-800/30 backdrop-blur-xl rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
+                  whileHover={{ scale: 1.05, y: -5 }}
+                  className="bg-slate-900/40 backdrop-blur-xl rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 group"
                 >
                   <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500/80 to-pink-500/80 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-cyan-500/80 to-purple-500/80 rounded-full flex items-center justify-center">
                       <cert.icon className="text-white" size={24} />
                     </div>
                     <div>
-                      <h3 className="text-lg font-semibold text-white">{cert.title}</h3>
-                      <p className="text-gray-400">{cert.issuer}</p>
+                      <div className="flex items-center space-x-2 mb-1">
+                        <h3 className="text-lg font-semibold text-white font-mono">{cert.title}</h3>
+                      </div>
+                      <p className="text-gray-400 font-mono text-sm">{cert.issuer}</p>
                     </div>
                   </div>
-                  <p className="text-purple-400 font-semibold">{cert.date}</p>
+                  <div className="flex justify-between items-center">
+                    <span className="text-cyan-400 font-semibold font-mono">{cert.date}</span>
+                    <span className="text-xs bg-purple-500/20 text-purple-300 px-2 py-1 rounded-full font-mono">
+                      {cert.level}
+                    </span>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>

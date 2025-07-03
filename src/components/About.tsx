@@ -1,16 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useVelocity } from 'framer-motion';
-import { Code, Palette, Database, Smartphone, Globe, Zap, Star, Sparkles, Heart, Coffee, Rocket, Target, CheckCircle, ArrowRight, Settings, Users, Briefcase } from 'lucide-react';
+import { Code, Palette, Database, Smartphone, Globe, Zap, Star, Sparkles, Heart, Coffee, Rocket, Target, CheckCircle, ArrowRight, Settings, Users, Briefcase, Cpu, Terminal, Binary, Wifi, Shield, Cloud, Brain, Layers, Activity, Hexagon } from 'lucide-react';
 
 const About: React.FC = () => {
   const [currentSkill, setCurrentSkill] = useState(0);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
+  const [scanlinePosition, setScanlinePosition] = useState(0);
+  const [matrixChars, setMatrixChars] = useState<string[]>([]);
+  const [dataFlow, setDataFlow] = useState<Array<{id: number, x: number, y: number}>>([]);
   const containerRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.3 });
   
-  // Smoother scroll animations with reduced intensity
+  // Scroll animations
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
@@ -20,76 +23,129 @@ const About: React.FC = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
   const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
 
-  // Gentler mouse tracking
+  // Mouse tracking
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
   const mouseXSpring = useSpring(mouseX, { stiffness: 150, damping: 50 });
   const mouseYSpring = useSpring(mouseY, { stiffness: 150, damping: 50 });
 
-  // Reduced velocity tracking
   const mouseXVelocity = useVelocity(mouseX);
   const mouseYVelocity = useVelocity(mouseY);
   const velocityFactor = useTransform([mouseXVelocity, mouseYVelocity], ([x, y]) => Math.min(Math.sqrt(x * x + y * y) / 2000, 1.2));
 
   const movingSkills = [
-    "Frontend Development",
-    "Backend Development", 
-    "UI/UX Design",
-    "Mobile Development",
-    "Cloud Architecture",
-    "DevOps & Deployment"
+    "Neural Network Architecture",
+    "Quantum Computing Research", 
+    "Distributed Systems Design",
+    "Edge AI Development",
+    "Blockchain Innovation",
+    "Cloud-Native Solutions"
   ];
 
-  // Slower floating elements
+  // Enhanced tech-themed floating elements
   const floatingElements = [
-    { icon: Star, delay: 0, duration: 15 },
-    { icon: Sparkles, delay: 2, duration: 18 },
-    { icon: Heart, delay: 4, duration: 20 },
-    { icon: Coffee, delay: 6, duration: 16 },
-    { icon: Rocket, delay: 8, duration: 22 },
-    { icon: Target, delay: 10, duration: 14 }
+    { icon: Brain, delay: 0, duration: 15, color: "text-cyan-400/30", path: "M10,10 Q50,5 90,10 Q95,50 90,90 Q50,95 10,90 Q5,50 10,10" },
+    { icon: Hexagon, delay: 2, duration: 18, color: "text-purple-400/30", path: "M20,20 Q80,15 80,80 Q20,85 20,20" },
+    { icon: Activity, delay: 4, duration: 20, color: "text-pink-400/30", path: "M15,50 Q50,20 85,50 Q50,80 15,50" },
+    { icon: Layers, delay: 6, duration: 16, color: "text-blue-400/30", path: "M30,30 Q70,25 70,70 Q30,75 30,30" },
+    { icon: Shield, delay: 8, duration: 22, color: "text-green-400/30", path: "M25,25 Q75,20 75,75 Q25,80 25,25" },
+    { icon: Cloud, delay: 10, duration: 14, color: "text-yellow-400/30", path: "M40,40 Q60,35 60,60 Q40,65 40,40" }
   ];
 
-  // Skills data matching the reference design
+  // Enhanced skills data with advanced tech focus
   const skillCategories = [
     {
-      title: "React Developer",
+      title: "AI/ML Architect",
+      icon: "🧠",
+      description: "Designing and implementing large-scale machine learning systems with neural architecture search",
+      bgColor: "from-cyan-500/20 to-blue-500/20",
+      borderColor: "border-cyan-500/30",
+      techStack: ["TensorFlow", "PyTorch", "MLflow", "Kubeflow"],
+      level: 95
+    },
+    {
+      title: "Cloud Solutions Engineer", 
+      icon: "☁️",
+      description: "Building resilient, auto-scaling cloud infrastructure with serverless and containerized architectures",
+      bgColor: "from-blue-500/20 to-purple-500/20",
+      borderColor: "border-blue-500/30",
+      techStack: ["AWS", "Kubernetes", "Terraform", "Istio"],
+      level: 92
+    },
+    {
+      title: "Blockchain Innovator",
+      icon: "⛓️", 
+      description: "Developing next-generation DeFi protocols and smart contract security frameworks",
+      bgColor: "from-purple-500/20 to-pink-500/20",
+      borderColor: "border-purple-500/30",
+      techStack: ["Solidity", "Rust", "Web3", "IPFS"],
+      level: 88
+    },
+    {
+      title: "DevOps Specialist",
+      icon: "🚀",
+      description: "Implementing GitOps workflows and infrastructure-as-code with advanced monitoring",
+      bgColor: "from-green-500/20 to-cyan-500/20", 
+      borderColor: "border-green-500/30",
+      techStack: ["Docker", "ArgoCD", "Prometheus", "Grafana"],
+      level: 90
+    },
+    {
+      title: "Quantum Developer",
       icon: "⚛️",
-      description: "Building modern, responsive web applications with React.js and its ecosystem",
-      bgColor: "from-blue-500/20 to-cyan-500/20",
-      borderColor: "border-blue-500/30"
+      description: "Exploring quantum algorithms for optimization and quantum machine learning applications",
+      bgColor: "from-pink-500/20 to-red-500/20",
+      borderColor: "border-pink-500/30",
+      techStack: ["Qiskit", "Cirq", "PennyLane", "Q#"],
+      level: 75
     },
     {
-      title: "Python Developer", 
-      icon: "🐍",
-      description: "Backend development, data analysis, and automation using Python",
-      bgColor: "from-yellow-500/20 to-green-500/20",
-      borderColor: "border-yellow-500/30"
-    },
-    {
-      title: "Backend Developer",
-      icon: "⚙️", 
-      description: "Server-side development with Node.js, databases, and API design",
-      bgColor: "from-green-500/20 to-emerald-500/20",
-      borderColor: "border-green-500/30"
-    },
-    {
-      title: "Interactive Developer",
-      icon: "✨",
-      description: "Creating engaging user experiences with animations and interactions",
-      bgColor: "from-purple-500/20 to-pink-500/20", 
-      borderColor: "border-purple-500/30"
-    },
-    {
-      title: "Project Manager",
-      icon: "📋",
-      description: "Leading development teams and managing project lifecycles",
+      title: "Security Engineer",
+      icon: "🛡️",
+      description: "Implementing zero-trust architectures and advanced threat detection systems",
       bgColor: "from-red-500/20 to-orange-500/20",
-      borderColor: "border-red-500/30"
+      borderColor: "border-red-500/30",
+      techStack: ["Vault", "Falco", "OPA", "Cilium"],
+      level: 85
     }
   ];
 
-  // Mouse tracking with throttling
+  // Matrix effect with enhanced characters
+  useEffect(() => {
+    const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン∑∏∆∇∂∫∞≈≠≤≥±×÷√∛∜∝∴∵∀∃∈∉∪∩⊂⊃⊆⊇';
+    const newChars = Array.from({ length: 80 }, () => chars[Math.floor(Math.random() * chars.length)]);
+    setMatrixChars(newChars);
+  }, []);
+
+  // Data flow effect
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setDataFlow(prev => {
+        const newFlow = [...prev.slice(-10)];
+        if (Math.random() > 0.7) {
+          newFlow.push({
+            id: Date.now(),
+            x: Math.random() * 100,
+            y: Math.random() * 100
+          });
+        }
+        return newFlow;
+      });
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Scanline animation
+  useEffect(() => {
+    const scanInterval = setInterval(() => {
+      setScanlinePosition(prev => (prev + 1) % 100);
+    }, 100);
+
+    return () => clearInterval(scanInterval);
+  }, []);
+
+  // Mouse tracking
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
     
@@ -104,7 +160,7 @@ const About: React.FC = () => {
           mouseX.set(x);
           mouseY.set(y);
         }
-      }, 16); // Throttle to ~60fps
+      }, 16);
     };
 
     const container = containerRef.current;
@@ -117,79 +173,225 @@ const About: React.FC = () => {
     }
   }, [mouseX, mouseY]);
 
-  // Change skill every 5 seconds (much slower)
+  // Change skill every 4 seconds
   useEffect(() => {
     const skillInterval = setInterval(() => {
       setCurrentSkill(prev => (prev + 1) % movingSkills.length);
-    }, 5000); // Increased from 3000 to 5000ms
+    }, 4000);
 
     return () => clearInterval(skillInterval);
   }, []);
 
   return (
     <section id="about" className="py-20 relative overflow-hidden" ref={containerRef}>
-      {/* Slower floating background elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        {floatingElements.map((element, index) => (
+      {/* Enhanced Matrix Background */}
+      <div className="absolute inset-0 pointer-events-none opacity-8">
+        {matrixChars.map((char, index) => (
           <motion.div
             key={index}
-            className="absolute text-purple-400/10"
+            className="absolute text-cyan-400 font-mono text-xs"
             style={{
-              left: `${20 + (index * 15)}%`,
-              top: `${30 + (index * 10)}%`,
+              left: `${(index * 2.5) % 100}%`,
+              top: `${Math.floor(index / 40) * 12}%`,
             }}
             animate={{
-              y: [0, -30, 0],
-              x: [0, Math.sin(index) * 20, 0],
-              rotate: [0, 180],
-              scale: [1, 1.1, 1],
+              y: [0, -120, 0],
+              opacity: [0, 1, 0],
+              scale: [0.8, 1.2, 0.8]
             }}
             transition={{
-              duration: element.duration,
+              duration: 4 + Math.random() * 3,
               repeat: Infinity,
-              delay: element.delay,
-              ease: "easeInOut"
+              delay: Math.random() * 4,
             }}
           >
-            <element.icon size={20} />
+            {char}
           </motion.div>
         ))}
       </div>
 
-      {/* Gentler mouse follower effect */}
+      {/* Advanced Neural Network Background */}
+      <div className="absolute inset-0 opacity-10">
+        <svg className="w-full h-full" viewBox="0 0 1000 1000">
+          {/* Neural network with enhanced connections */}
+          {[...Array(25)].map((_, i) => (
+            <g key={i}>
+              <motion.circle
+                cx={100 + (i % 5) * 200}
+                cy={100 + Math.floor(i / 5) * 200}
+                r="4"
+                fill="url(#neuralGradient)"
+                animate={{
+                  r: [4, 8, 4],
+                  opacity: [0.3, 0.9, 0.3]
+                }}
+                transition={{
+                  duration: 3 + Math.random(),
+                  repeat: Infinity,
+                  delay: i * 0.1
+                }}
+              />
+              {/* Enhanced neural connections */}
+              {i < 20 && (
+                <motion.path
+                  d={`M${100 + (i % 5) * 200},${100 + Math.floor(i / 5) * 200} Q${150 + (i % 5) * 200},${50 + Math.floor(i / 5) * 200} ${100 + ((i + 1) % 5) * 200},${100 + Math.floor((i + 1) / 5) * 200}`}
+                  stroke="url(#connectionGradient)"
+                  strokeWidth="2"
+                  fill="none"
+                  animate={{
+                    opacity: [0.2, 0.8, 0.2],
+                    strokeWidth: [1, 3, 1]
+                  }}
+                  transition={{
+                    duration: 4,
+                    repeat: Infinity,
+                    delay: i * 0.2
+                  }}
+                />
+              )}
+            </g>
+          ))}
+          <defs>
+            <linearGradient id="neuralGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#06b6d4" />
+              <stop offset="50%" stopColor="#a855f7" />
+              <stop offset="100%" stopColor="#ec4899" />
+            </linearGradient>
+            <linearGradient id="connectionGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#06b6d4" stopOpacity="0.4" />
+              <stop offset="50%" stopColor="#a855f7" stopOpacity="0.6" />
+              <stop offset="100%" stopColor="#ec4899" stopOpacity="0.4" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+
+      {/* Data Flow Visualization */}
+      <div className="absolute inset-0 pointer-events-none">
+        {dataFlow.map((point) => (
+          <motion.div
+            key={point.id}
+            className="absolute w-2 h-2 bg-cyan-400/60 rounded-full"
+            style={{
+              left: `${point.x}%`,
+              top: `${point.y}%`,
+            }}
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ 
+              scale: [0, 1, 0],
+              opacity: [0, 1, 0],
+              x: [0, Math.random() * 100 - 50],
+              y: [0, Math.random() * 100 - 50]
+            }}
+            transition={{
+              duration: 3,
+              ease: "easeOut"
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Enhanced Scanline Effect */}
       <motion.div
-        className="absolute w-64 h-64 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-3xl pointer-events-none"
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background: `linear-gradient(to bottom, transparent ${scanlinePosition}%, rgba(6, 182, 212, 0.1) ${scanlinePosition + 1}%, transparent ${scanlinePosition + 2}%)`
+        }}
+      />
+
+      {/* Floating tech elements with paths */}
+      <div className="absolute inset-0 pointer-events-none">
+        {floatingElements.map((element, index) => (
+          <motion.div
+            key={index}
+            className={`absolute ${element.color}`}
+            animate={{
+              offsetDistance: ["0%", "100%"]
+            }}
+            transition={{
+              duration: element.duration,
+              repeat: Infinity,
+              ease: "linear",
+              delay: element.delay
+            }}
+            style={{
+              offsetPath: `path("${element.path}")`,
+              offsetRotate: "auto"
+            }}
+          >
+            <motion.div
+              animate={{
+                rotate: [0, 360],
+                scale: [1, 1.2, 1]
+              }}
+              transition={{
+                duration: 4,
+                repeat: Infinity,
+                ease: "easeInOut"
+              }}
+            >
+              <element.icon size={28} />
+            </motion.div>
+          </motion.div>
+        ))}
+      </div>
+
+      {/* Enhanced mouse follower effect */}
+      <motion.div
+        className="absolute w-96 h-96 bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-pink-500/5 rounded-full blur-3xl pointer-events-none"
         style={{
           x: mouseXSpring,
           y: mouseYSpring,
           scale: velocityFactor,
         }}
         animate={{
-          scale: isHovering ? 1.2 : 1,
+          scale: isHovering ? 1.5 : 1,
         }}
         transition={{ duration: 0.6 }}
       />
 
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 relative z-10">
         <motion.div
           style={{ y, opacity, scale }}
           className="text-center mb-16"
         >
+          {/* Enhanced Tech Badge */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.8 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="inline-flex items-center space-x-3 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-8 py-4 border border-cyan-500/30 mb-8"
+          >
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+            >
+              <Brain className="text-cyan-400" size={24} />
+            </motion.div>
+            <span className="text-cyan-300 font-mono text-sm tracking-wider">SYSTEM.ABOUT.INITIALIZE()</span>
+            <motion.div
+              animate={{ scale: [1, 1.2, 1] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-2 h-2 bg-green-400 rounded-full"
+            />
+          </motion.div>
+
           <motion.h2
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
-            className="text-4xl lg:text-5xl font-bold text-white mb-6"
+            className="text-5xl lg:text-6xl font-bold text-white mb-8"
           >
             About{' '}
             <motion.span 
-              className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
+              className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent relative"
               animate={{
                 backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
               }}
               transition={{
-                duration: 6, // Slower gradient animation
+                duration: 4,
                 repeat: Infinity,
                 ease: "linear"
               }}
@@ -198,6 +400,18 @@ const About: React.FC = () => {
               }}
             >
               Me
+              {/* Holographic effect */}
+              <motion.div
+                className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 to-purple-400/20 blur-sm"
+                animate={{
+                  opacity: [0, 0.5, 0],
+                  scale: [1, 1.1, 1]
+                }}
+                transition={{
+                  duration: 3,
+                  repeat: Infinity
+                }}
+              />
             </motion.span>
           </motion.h2>
           
@@ -206,14 +420,17 @@ const About: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-gray-300 text-lg max-w-2xl mx-auto"
+            className="text-gray-300 text-xl max-w-3xl mx-auto font-mono leading-relaxed"
           >
-            I'm a passionate developer with 5+ years of experience creating digital solutions that make a difference.
+            A passionate technologist architecting the future with{' '}
+            <span className="text-cyan-400 font-semibold">AI/ML</span>,{' '}
+            <span className="text-purple-400 font-semibold">Quantum Computing</span>, and{' '}
+            <span className="text-pink-400 font-semibold">Distributed Systems</span>.
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Left Side - Story */}
+        <div className="grid lg:grid-cols-2 gap-20 items-center mb-24">
+          {/* Enhanced Left Side - Story */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -224,89 +441,160 @@ const About: React.FC = () => {
             onMouseLeave={() => setIsHovering(false)}
           >
             <motion.h3 
-              className="text-3xl font-bold text-white mb-6"
+              className="text-4xl font-bold text-white mb-8 font-mono flex items-center space-x-3"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              My Story
+              <Terminal className="text-cyan-400" size={32} />
+              <span>> Journey.execute()</span>
             </motion.h3>
             
-            <motion.div className="space-y-6">
+            <motion.div className="space-y-8">
               {[
-                "I started my journey in web development 5 years ago and have been passionate about creating beautiful, functional websites ever since. I specialize in modern web technologies and love to work on projects that challenge me to grow as a developer.",
-                "When I'm not coding, you can find me exploring new design trends, contributing to open-source projects, or sharing my knowledge through technical writing and mentoring."
-              ].map((text, index) => (
-                <motion.p
+                {
+                  title: "The Beginning",
+                  content: "Started as a curious developer 6 years ago, now architecting AI-powered solutions that serve millions. I specialize in cutting-edge technologies that push the boundaries of what's computationally possible.",
+                  icon: Rocket,
+                  color: "text-cyan-400"
+                },
+                {
+                  title: "Current Focus", 
+                  content: "Leading research in quantum machine learning, building distributed AI systems, and mentoring the next generation of engineers in emerging technologies like neuromorphic computing.",
+                  icon: Brain,
+                  color: "text-purple-400"
+                },
+                {
+                  title: "Innovation Philosophy",
+                  content: "Believing that the intersection of quantum computing, AI, and distributed systems will define the next technological revolution. Every line of code is a step toward that future.",
+                  icon: Zap,
+                  color: "text-pink-400"
+                }
+              ].map((section, index) => (
+                <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + index * 0.2, duration: 0.8 }}
                   viewport={{ once: true }}
-                  whileHover={{ x: 5 }}
-                  className="text-gray-300 text-lg leading-relaxed cursor-pointer"
+                  className="bg-slate-900/60 backdrop-blur-lg rounded-2xl p-6 border border-cyan-500/20 hover:border-cyan-500/40 transition-all duration-300 group"
+                  whileHover={{ scale: 1.02, y: -5 }}
                 >
-                  {text}
-                </motion.p>
+                  <div className="flex items-start space-x-4">
+                    <motion.div
+                      className={`w-12 h-12 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-xl flex items-center justify-center ${section.color}`}
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                    >
+                      <section.icon size={24} />
+                    </motion.div>
+                    <div className="flex-1">
+                      <h4 className="text-lg font-semibold text-white mb-2 font-mono">{section.title}</h4>
+                      <p className="text-gray-300 leading-relaxed font-mono text-sm">
+                        <span className="text-cyan-400">$</span> {section.content}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
               ))}
             </motion.div>
 
-            {/* Moving Skills Text - NO BLINKING CURSOR */}
+            {/* Enhanced Moving Skills Display */}
             <motion.div
-              className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden"
+              className="bg-slate-900/80 backdrop-blur-lg rounded-3xl p-8 border border-cyan-500/30 relative overflow-hidden"
               whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
+              {/* Advanced circuit pattern background */}
+              <div className="absolute inset-0 opacity-10">
+                <svg className="w-full h-full" viewBox="0 0 200 200">
+                  <defs>
+                    <pattern id="advancedCircuit" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                      <path d="M 20,0 L 20,20 L 0,20" stroke="currentColor" strokeWidth="1" fill="none"/>
+                      <circle cx="20" cy="20" r="2" fill="currentColor"/>
+                      <rect x="18" y="18" width="4" height="4" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+                    </pattern>
+                  </defs>
+                  <rect width="100%" height="100%" fill="url(#advancedCircuit)" className="text-cyan-400"/>
+                </svg>
+              </div>
+              
               <motion.div
-                className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"
+                className="absolute inset-0 bg-gradient-to-r from-cyan-500/5 via-purple-500/5 to-pink-500/5"
                 animate={{
                   background: [
-                    'linear-gradient(45deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05))',
-                    'linear-gradient(45deg, rgba(236, 72, 153, 0.05), rgba(6, 182, 212, 0.05))',
-                    'linear-gradient(45deg, rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05))'
+                    'linear-gradient(45deg, rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05))',
+                    'linear-gradient(45deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05), rgba(6, 182, 212, 0.05))',
+                    'linear-gradient(45deg, rgba(236, 72, 153, 0.05), rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05))'
                   ]
                 }}
-                transition={{ duration: 8, repeat: Infinity }} // Much slower
+                transition={{ duration: 8, repeat: Infinity }}
               />
               
-              <h4 className="text-lg font-semibold text-white mb-4 relative z-10">Currently Specializing In:</h4>
-              <div className="flex items-center h-8 relative z-10">
-                <motion.span
-                  key={currentSkill}
-                  initial={{ opacity: 0, x: 20, scale: 0.9 }}
-                  animate={{ opacity: 1, x: 0, scale: 1 }}
-                  exit={{ opacity: 0, x: -20, scale: 0.9 }}
-                  transition={{ 
-                    duration: 1.2, // Much slower transition
-                    ease: "easeOut"
-                  }}
-                  className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent font-bold text-xl"
-                >
-                  {movingSkills[currentSkill]}
-                </motion.span>
+              <div className="relative z-10">
+                <h4 className="text-xl font-semibold text-white mb-6 relative z-10 font-mono flex items-center space-x-3">
+                  <Activity className="text-cyan-400" size={24} />
+                  <span>> Currently_Researching:</span>
+                </h4>
+                <div className="flex items-center h-12 relative z-10">
+                  <motion.span
+                    key={currentSkill}
+                    initial={{ opacity: 0, x: 30, scale: 0.8 }}
+                    animate={{ opacity: 1, x: 0, scale: 1 }}
+                    exit={{ opacity: 0, x: -30, scale: 0.8 }}
+                    transition={{ 
+                      duration: 0.8,
+                      ease: "easeOut"
+                    }}
+                    className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent font-bold text-2xl font-mono"
+                  >
+                    {movingSkills[currentSkill]}
+                  </motion.span>
+                  <motion.span
+                    animate={{ opacity: [1, 0] }}
+                    transition={{ duration: 0.5, repeat: Infinity }}
+                    className="ml-3 text-cyan-400 font-bold text-2xl"
+                  >
+                    _
+                  </motion.span>
+                </div>
               </div>
             </motion.div>
 
-            {/* Stats with gentler animations */}
+            {/* Enhanced Stats with Progress Bars */}
             <motion.div 
-              className="flex space-x-8 pt-4"
+              className="grid grid-cols-2 gap-6 pt-6"
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.8, duration: 0.8 }}
               viewport={{ once: true }}
             >
               {[
-                { value: "50+", label: "Projects", color: "text-purple-400" },
-                { value: "5+", label: "Years", color: "text-pink-400" },
-                { value: "100+", label: "Happy Clients", color: "text-cyan-400" }
+                { value: "150+", label: "AI Models Deployed", color: "text-cyan-400", icon: Brain, progress: 95 },
+                { value: "6+", label: "Years Experience", color: "text-purple-400", icon: Cpu, progress: 85 },
+                { value: "100+", label: "Cloud Solutions", color: "text-pink-400", icon: Cloud, progress: 92 },
+                { value: "25+", label: "Research Papers", color: "text-green-400", icon: Target, progress: 78 }
               ].map((stat, index) => (
                 <motion.div 
                   key={stat.label}
-                  className="text-center"
-                  whileHover={{ scale: 1.05, y: -2 }}
+                  className="text-center bg-slate-900/60 backdrop-blur-lg rounded-2xl p-6 border border-cyan-500/20 relative overflow-hidden group"
+                  whileHover={{ 
+                    scale: 1.05, 
+                    y: -5,
+                    borderColor: "rgba(6, 182, 212, 0.4)"
+                  }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
+                  <motion.div className="flex items-center justify-center mb-3">
+                    <motion.div
+                      whileHover={{ rotate: 360 }}
+                      transition={{ duration: 0.6 }}
+                      className={`w-12 h-12 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-xl flex items-center justify-center ${stat.color}`}
+                    >
+                      <stat.icon size={24} />
+                    </motion.div>
+                  </motion.div>
                   <motion.div 
-                    className={`text-3xl font-bold ${stat.color}`}
+                    className={`text-3xl font-bold ${stat.color} font-mono mb-2`}
                     initial={{ scale: 0 }}
                     whileInView={{ scale: 1 }}
                     transition={{ 
@@ -316,20 +604,44 @@ const About: React.FC = () => {
                       stiffness: 200
                     }}
                     viewport={{ once: true }}
-                    whileHover={{ 
-                      scale: 1.1,
-                      transition: { duration: 0.3 }
-                    }}
                   >
                     {stat.value}
                   </motion.div>
-                  <div className="text-gray-400">{stat.label}</div>
+                  <div className="text-gray-400 text-sm font-mono mb-3">{stat.label}</div>
+                  
+                  {/* Progress bar */}
+                  <div className="w-full bg-slate-800/50 rounded-full h-2 overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      whileInView={{ width: `${stat.progress}%` }}
+                      transition={{ delay: 1.2 + index * 0.1, duration: 1 }}
+                      viewport={{ once: true }}
+                      className={`h-2 bg-gradient-to-r ${
+                        stat.color.includes('cyan') ? 'from-cyan-400 to-cyan-600' :
+                        stat.color.includes('purple') ? 'from-purple-400 to-purple-600' :
+                        stat.color.includes('pink') ? 'from-pink-400 to-pink-600' :
+                        'from-green-400 to-green-600'
+                      } rounded-full relative overflow-hidden`}
+                    >
+                      <motion.div
+                        animate={{
+                          x: ['-100%', '100%']
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-12"
+                      />
+                    </motion.div>
+                  </div>
                 </motion.div>
               ))}
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Enhanced Personal Image with increased radius */}
+          {/* Enhanced Right Side - Futuristic Personal Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -338,51 +650,92 @@ const About: React.FC = () => {
             className="relative flex justify-center"
             style={{ perspective: "1000px" }}
           >
-            <motion.div 
-              className="relative w-full h-96"
-              whileHover={{ scale: 1.02 }}
-              transition={{ type: "spring", stiffness: 300 }}
-            >
-              {/* Slower background rings */}
-              {[...Array(3)].map((_, i) => (
+            <div className="relative w-96 h-96">
+              {/* Quantum field effect */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
+                animate={{
+                  scale: [1, 1.4, 1],
+                  opacity: [0.3, 0.8, 0.3],
+                  rotate: [0, 180, 360]
+                }}
+                transition={{
+                  duration: 10,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Enhanced tech rings with data visualization */}
+              {[...Array(6)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute inset-0 rounded-full border-2 border-purple-400/10"
+                  className="absolute inset-0 rounded-full border-2"
                   style={{
-                    scale: 1 + i * 0.1,
+                    scale: 1 + i * 0.08,
+                    borderColor: i % 3 === 0 ? 'rgba(6, 182, 212, 0.3)' : 
+                                i % 3 === 1 ? 'rgba(168, 85, 247, 0.3)' : 
+                                'rgba(236, 72, 153, 0.3)'
                   }}
-                  animate={{ rotate: 360 }}
+                  animate={{ 
+                    rotate: i % 2 === 0 ? 360 : -360,
+                    borderColor: [
+                      'rgba(6, 182, 212, 0.3)',
+                      'rgba(168, 85, 247, 0.3)',
+                      'rgba(236, 72, 153, 0.3)',
+                      'rgba(6, 182, 212, 0.3)'
+                    ]
+                  }}
                   transition={{
-                    duration: 20 + i * 10, // Much slower
-                    repeat: Infinity,
-                    ease: "linear"
+                    rotate: {
+                      duration: 20 + i * 3,
+                      repeat: Infinity,
+                      ease: "linear"
+                    },
+                    borderColor: {
+                      duration: 6,
+                      repeat: Infinity
+                    }
                   }}
                 />
               ))}
               
-              {/* Main image container - increased size */}
+              {/* Main image container with advanced holographic effects */}
               <motion.div 
-                className="relative w-96 h-96 mx-auto rounded-full overflow-hidden border-4 border-white/10 shadow-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10"
+                className="relative w-full h-full rounded-full overflow-hidden border-4 border-cyan-400/30 shadow-2xl bg-gradient-to-br from-slate-900/50 to-purple-900/50 backdrop-blur-sm"
                 style={{ transformStyle: "preserve-3d" }}
                 animate={{
                   boxShadow: [
-                    "0 0 30px rgba(168, 85, 247, 0.3)",
-                    "0 0 50px rgba(236, 72, 153, 0.4)",
-                    "0 0 30px rgba(168, 85, 247, 0.3)"
+                    "0 0 40px rgba(6, 182, 212, 0.4)",
+                    "0 0 60px rgba(168, 85, 247, 0.5)",
+                    "0 0 40px rgba(6, 182, 212, 0.4)"
                   ]
                 }}
-                transition={{ duration: 6, repeat: Infinity }}
+                transition={{ duration: 5, repeat: Infinity }}
                 whileHover={{
                   scale: 1.05,
-                  rotateY: 10,
+                  rotateY: 15,
                   transition: { duration: 0.5 }
                 }}
               >
-                {/* Personal image with transparent background */}
+                {/* Advanced hexagonal grid overlay */}
+                <div className="absolute inset-0 opacity-15 z-10">
+                  <svg className="w-full h-full" viewBox="0 0 100 100">
+                    <defs>
+                      <pattern id="hexGrid" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
+                        <polygon points="7.5,1 13,4 13,10 7.5,13 2,10 2,4" stroke="currentColor" strokeWidth="0.5" fill="none"/>
+                        <circle cx="7.5" cy="7.5" r="1" fill="currentColor" opacity="0.3"/>
+                      </pattern>
+                    </defs>
+                    <rect width="100%" height="100%" fill="url(#hexGrid)" className="text-cyan-400"/>
+                  </svg>
+                </div>
+                
+                {/* Personal image */}
                 <motion.img
-                  src="/LS20250703184432-removebg-preview.png"
+                  src="/image.png"
                   alt="Sarah Johnson"
-                  className="w-full h-full object-cover object-center"
+                  className="w-full h-full object-cover object-center relative z-20 rounded-full"
                   initial={{ scale: 1.1, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
@@ -392,36 +745,36 @@ const About: React.FC = () => {
                   }}
                 />
                 
-                {/* Enhanced gradient overlay */}
+                {/* Advanced holographic overlay with multiple layers */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-purple-500/15 via-transparent to-pink-500/15"
+                  className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-purple-400/10 z-30"
                   animate={{
                     background: [
-                      'linear-gradient(45deg, rgba(168, 85, 247, 0.15), transparent, rgba(236, 72, 153, 0.15))',
-                      'linear-gradient(45deg, rgba(236, 72, 153, 0.15), transparent, rgba(6, 182, 212, 0.15))',
-                      'linear-gradient(45deg, rgba(6, 182, 212, 0.15), transparent, rgba(168, 85, 247, 0.15))'
+                      'linear-gradient(45deg, rgba(6, 182, 212, 0.1), transparent, rgba(168, 85, 247, 0.1))',
+                      'linear-gradient(45deg, rgba(168, 85, 247, 0.1), transparent, rgba(236, 72, 153, 0.1))',
+                      'linear-gradient(45deg, rgba(236, 72, 153, 0.1), transparent, rgba(6, 182, 212, 0.1))'
                     ]
                   }}
                   transition={{ duration: 8, repeat: Infinity }}
                 />
                 
-                {/* Fewer, slower particles */}
-                {[...Array(8)].map((_, i) => (
+                {/* Quantum data particles */}
+                {[...Array(25)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-1.5 h-1.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-40"
+                    className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-80 z-40"
                     style={{
                       left: `${Math.random() * 100}%`,
                       top: `${Math.random() * 100}%`,
                     }}
                     animate={{
-                      y: [0, -60, 0],
-                      x: [0, Math.sin(i) * 30, 0],
-                      opacity: [0, 0.4, 0],
-                      scale: [0, 1, 0],
+                      y: [0, -120, 0],
+                      x: [0, Math.sin(i) * 60, 0],
+                      opacity: [0, 1, 0],
+                      scale: [0, 2.5, 0],
                     }}
                     transition={{
-                      duration: 8 + Math.random() * 4, // Much slower
+                      duration: 5 + Math.random() * 3,
                       repeat: Infinity,
                       delay: Math.random() * 4,
                       ease: "easeInOut"
@@ -429,52 +782,103 @@ const About: React.FC = () => {
                   />
                 ))}
                 
-                {/* Shimmer effect */}
+                {/* Advanced scanning effect with multiple lines */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                  className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent h-3 z-50"
                   animate={{
-                    x: ['-100%', '200%']
+                    y: ['-15%', '115%']
                   }}
                   transition={{
                     duration: 4,
                     repeat: Infinity,
-                    repeatDelay: 3,
-                    ease: "easeInOut"
+                    ease: "linear"
+                  }}
+                />
+                
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/30 to-transparent w-3 z-50"
+                  animate={{
+                    x: ['-15%', '115%']
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "linear",
+                    delay: 1
                   }}
                 />
               </motion.div>
-
-              {/* Decorative floating elements around the image */}
-              <motion.div
-                className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full"
-                animate={{
-                  scale: [1, 1.3, 1],
-                  rotate: [0, 180, 360]
-                }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
               
+              {/* Enhanced floating tech elements with advanced animations */}
               <motion.div
-                className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
+                className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-cyan-400/30 shadow-2xl"
                 animate={{
                   scale: [1, 1.2, 1],
-                  rotate: [360, 180, 0]
+                  rotate: [0, 90, 180, 270, 360],
+                  y: [0, -15, 0]
                 }}
                 transition={{
-                  duration: 5,
+                  duration: 8,
                   repeat: Infinity,
                   ease: "easeInOut"
                 }}
-              />
-            </motion.div>
+              >
+                <Brain className="text-white" size={28} />
+              </motion.div>
+              
+              <motion.div
+                className="absolute -bottom-10 -left-10 w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-purple-400/30 shadow-2xl"
+                animate={{
+                  scale: [1, 1.4, 1],
+                  rotate: [360, 270, 180, 90, 0],
+                  y: [0, 15, 0]
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Database className="text-white" size={22} />
+              </motion.div>
+
+              {/* Additional quantum elements */}
+              <motion.div
+                className="absolute top-1/4 -left-8 w-12 h-12 bg-gradient-to-r from-green-400 to-cyan-400 rounded-xl flex items-center justify-center backdrop-blur-sm border border-green-400/30"
+                animate={{
+                  x: [0, -20, 0],
+                  rotate: [0, 180, 360],
+                  scale: [1, 1.2, 1]
+                }}
+                transition={{
+                  duration: 9,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Hexagon className="text-white" size={18} />
+              </motion.div>
+
+              <motion.div
+                className="absolute bottom-1/4 -right-8 w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl flex items-center justify-center backdrop-blur-sm border border-yellow-400/30"
+                animate={{
+                  x: [0, 20, 0],
+                  rotate: [0, -180, -360],
+                  scale: [1, 1.3, 1]
+                }}
+                transition={{
+                  duration: 7,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              >
+                <Activity className="text-white" size={20} />
+              </motion.div>
+            </div>
           </motion.div>
         </div>
 
-        {/* How I Can Contribute & My Key Skills Section */}
+        {/* Enhanced Skills Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -482,35 +886,41 @@ const About: React.FC = () => {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <motion.div className="text-center mb-16">
+          <motion.div className="text-center mb-20">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-6 py-3 border border-purple-500/30 mb-6"
+              className="inline-flex items-center space-x-3 bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-8 py-4 border border-cyan-500/30 mb-8"
             >
-              <span className="text-2xl">🏆</span>
-              <span className="text-purple-300 font-medium">What I Bring to the Table</span>
+              <motion.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              >
+                <Layers className="text-cyan-400" size={24} />
+              </motion.div>
+              <span className="text-cyan-300 font-mono text-sm tracking-wider">EXPERTISE.LOAD_ALL()</span>
+              <motion.div
+                animate={{ scale: [1, 1.2, 1] }}
+                transition={{ duration: 2, repeat: Infinity }}
+                className="w-2 h-2 bg-green-400 rounded-full"
+              />
             </motion.div>
             
             <motion.h3 
-              className="text-4xl lg:text-5xl font-bold text-white mb-6"
+              className="text-5xl lg:text-6xl font-bold text-white mb-8 font-mono"
               whileHover={{ scale: 1.02 }}
             >
-              How I Can{' '}
-              <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-                Contribute
-              </span>{' '}
-              & My Key{' '}
-              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
-                Skills
+              Technical{' '}
+              <span className="bg-gradient-to-r from-cyan-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+                Expertise
               </span>
             </motion.h3>
           </motion.div>
 
-          {/* Circular Skills Grid */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-16 max-w-6xl mx-auto">
+          {/* Enhanced Skills Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {skillCategories.map((skill, index) => (
               <motion.div
                 key={skill.title}
@@ -523,90 +933,138 @@ const About: React.FC = () => {
                   stiffness: 100
                 }}
                 viewport={{ once: true }}
-                className="group relative flex flex-col items-center"
+                className="group relative"
                 whileHover={{ scale: 1.05, y: -10 }}
               >
-                {/* Circular Background */}
+                {/* Enhanced skill card */}
                 <motion.div
-                  className={`relative w-32 h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br ${skill.bgColor} backdrop-blur-lg border-2 ${skill.borderColor} flex items-center justify-center mb-4 overflow-hidden`}
+                  className={`relative bg-gradient-to-br ${skill.bgColor} backdrop-blur-xl rounded-3xl p-8 border-2 ${skill.borderColor} overflow-hidden h-full`}
                   whileHover={{ 
-                    boxShadow: "0 20px 40px rgba(168, 85, 247, 0.3)",
-                    borderColor: "rgba(168, 85, 247, 0.6)"
+                    boxShadow: "0 25px 50px rgba(6, 182, 212, 0.3)",
+                    borderColor: "rgba(6, 182, 212, 0.6)"
                   }}
                   transition={{ duration: 0.3 }}
                 >
-                  {/* Animated background gradient */}
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    animate={{
-                      background: [
-                        `linear-gradient(45deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1))`,
-                        `linear-gradient(45deg, rgba(236, 72, 153, 0.1), rgba(6, 182, 212, 0.1))`,
-                        `linear-gradient(45deg, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1))`
-                      ]
-                    }}
-                    transition={{ duration: 3, repeat: Infinity }}
-                  />
+                  {/* Advanced circuit pattern */}
+                  <div className="absolute inset-0 opacity-10">
+                    <svg className="w-full h-full" viewBox="0 0 200 200">
+                      <defs>
+                        <pattern id={`skillCircuit-${index}`} x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                          <path d="M 10,0 L 10,10 L 0,10" stroke="currentColor" strokeWidth="1" fill="none"/>
+                          <circle cx="10" cy="10" r="1" fill="currentColor"/>
+                          <rect x="8" y="8" width="4" height="4" fill="none" stroke="currentColor" strokeWidth="0.5"/>
+                        </pattern>
+                      </defs>
+                      <rect width="100%" height="100%" fill={`url(#skillCircuit-${index})`} className="text-cyan-400"/>
+                    </svg>
+                  </div>
                   
-                  {/* Icon */}
+                  {/* Icon and title */}
                   <motion.div 
-                    className="text-4xl lg:text-5xl relative z-10"
+                    className="text-6xl mb-6 relative z-10 flex justify-center"
                     whileHover={{ 
                       rotate: 360,
-                      scale: 1.1
+                      scale: 1.2
                     }}
-                    transition={{ duration: 0.6 }}
+                    transition={{ duration: 0.8 }}
                   >
                     {skill.icon}
                   </motion.div>
 
-                  {/* Floating particles */}
-                  {[...Array(6)].map((_, i) => (
+                  <motion.h4 
+                    className="text-2xl font-semibold text-white text-center mb-4 font-mono"
+                    whileHover={{ 
+                      scale: 1.05,
+                      color: "#06b6d4"
+                    }}
+                    transition={{ duration: 0.2 }}
+                  >
+                    {skill.title}
+                  </motion.h4>
+                  
+                  <motion.p 
+                    className="text-gray-300 text-center mb-6 font-mono text-sm leading-relaxed"
+                    initial={{ y: 10, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
+                    viewport={{ once: true }}
+                  >
+                    {skill.description}
+                  </motion.p>
+
+                  {/* Skill level indicator */}
+                  <div className="mb-6">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-gray-400 font-mono text-sm">Proficiency</span>
+                      <span className="text-cyan-400 font-mono text-sm">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-slate-800/50 rounded-full h-2 overflow-hidden">
+                      <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: `${skill.level}%` }}
+                        transition={{ delay: index * 0.1 + 0.7, duration: 1.5 }}
+                        viewport={{ once: true }}
+                        className="h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full relative overflow-hidden"
+                      >
+                        <motion.div
+                          animate={{
+                            x: ['-100%', '100%']
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            ease: "linear"
+                          }}
+                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent skew-x-12"
+                        />
+                      </motion.div>
+                    </div>
+                  </div>
+
+                  {/* Tech stack tags */}
+                  <motion.div 
+                    className="flex flex-wrap gap-2 justify-center"
+                    initial={{ y: 10, opacity: 0 }}
+                    whileInView={{ y: 0, opacity: 1 }}
+                    transition={{ delay: index * 0.1 + 0.9, duration: 0.5 }}
+                    viewport={{ once: true }}
+                  >
+                    {skill.techStack.map((tech, techIndex) => (
+                      <motion.span 
+                        key={techIndex}
+                        className="text-xs bg-cyan-500/20 text-cyan-300 px-3 py-1 rounded-full font-mono border border-cyan-500/30"
+                        whileHover={{ scale: 1.1, backgroundColor: "rgba(6, 182, 212, 0.3)" }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        {tech}
+                      </motion.span>
+                    ))}
+                  </motion.div>
+
+                  {/* Quantum particles for each skill */}
+                  {[...Array(8)].map((_, i) => (
                     <motion.div
                       key={i}
-                      className="absolute w-1 h-1 bg-white/40 rounded-full"
+                      className="absolute w-1 h-1 bg-cyan-400/60 rounded-full"
                       style={{
                         left: `${Math.random() * 100}%`,
                         top: `${Math.random() * 100}%`,
                       }}
                       animate={{
-                        y: [0, -20, 0],
-                        x: [0, Math.sin(i) * 10, 0],
-                        opacity: [0, 0.6, 0],
-                        scale: [0, 1, 0],
+                        y: [0, -30, 0],
+                        x: [0, Math.sin(i) * 15, 0],
+                        opacity: [0, 0.8, 0],
+                        scale: [0, 1.5, 0],
                       }}
                       transition={{
-                        duration: 3 + Math.random() * 2,
+                        duration: 4 + Math.random() * 2,
                         repeat: Infinity,
-                        delay: Math.random() * 2,
+                        delay: Math.random() * 3,
                         ease: "easeInOut"
                       }}
                     />
                   ))}
                 </motion.div>
-
-                {/* Title */}
-                <motion.h4 
-                  className="text-lg lg:text-xl font-semibold text-white text-center mb-2"
-                  whileHover={{ 
-                    scale: 1.05,
-                    color: "#a855f7"
-                  }}
-                  transition={{ duration: 0.2 }}
-                >
-                  {skill.title}
-                </motion.h4>
-                
-                {/* Description */}
-                <motion.p 
-                  className="text-gray-400 text-sm text-center max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  initial={{ y: 10 }}
-                  whileInView={{ y: 0 }}
-                  transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
-                  viewport={{ once: true }}
-                >
-                  {skill.description}
-                </motion.p>
               </motion.div>
             ))}
           </div>
