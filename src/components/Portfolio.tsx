@@ -178,7 +178,7 @@ const Portfolio: React.FC = () => {
     { id: 'certificates', label: 'Certificates', icon: Award }
   ];
 
-  // Pin animation component with perfect alignment
+  // Pin animation component with perfect alignment and enhanced translucency
   const ProjectCard = ({ project, index }: { project: any; index: number }) => {
     const x = useMotionValue(0);
     const y = useMotionValue(0);
@@ -213,7 +213,7 @@ const Portfolio: React.FC = () => {
             stiffness: 300, 
             damping: 20 
           }}
-          className="relative w-full h-[480px] bg-gradient-to-br from-slate-800/90 to-slate-900/90 backdrop-blur-xl rounded-[20px] p-5 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 overflow-hidden"
+          className="relative w-full h-[480px] bg-slate-800/30 backdrop-blur-xl rounded-[20px] p-5 border border-purple-500/20 hover:border-purple-400/40 transition-all duration-500 overflow-hidden"
           style={{
             transformStyle: "preserve-3d",
             perspective: "1000px"
@@ -245,8 +245,8 @@ const Portfolio: React.FC = () => {
               transition={{ duration: 0.6 }}
             />
             
-            {/* Gradient overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent" />
+            {/* Enhanced gradient overlay with more transparency */}
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent" />
             
             {/* Floating action buttons - Always visible on hover */}
             <motion.div
@@ -261,7 +261,7 @@ const Portfolio: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: 360 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-10 h-10 bg-slate-900/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-purple-500/80 transition-all duration-300 border border-white/20"
+                className="w-10 h-10 bg-slate-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-purple-500/60 transition-all duration-300 border border-white/20"
               >
                 <Github size={16} />
               </motion.a>
@@ -271,7 +271,7 @@ const Portfolio: React.FC = () => {
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.2, rotate: -360 }}
                 whileTap={{ scale: 0.9 }}
-                className="w-10 h-10 bg-slate-900/80 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-pink-500/80 transition-all duration-300 border border-white/20"
+                className="w-10 h-10 bg-slate-900/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white hover:bg-pink-500/60 transition-all duration-300 border border-white/20"
               >
                 <ExternalLink size={16} />
               </motion.a>
@@ -368,14 +368,14 @@ const Portfolio: React.FC = () => {
             </motion.div>
           </div>
 
-          {/* Animated background gradient */}
+          {/* Enhanced animated background gradient with more transparency */}
           <motion.div
-            className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[20px]"
+            className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-pink-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-[20px]"
             animate={{
               background: [
-                'linear-gradient(45deg, rgba(168, 85, 247, 0.05) 0%, rgba(236, 72, 153, 0.05) 50%, rgba(6, 182, 212, 0.05) 100%)',
-                'linear-gradient(45deg, rgba(6, 182, 212, 0.05) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(236, 72, 153, 0.05) 100%)',
-                'linear-gradient(45deg, rgba(236, 72, 153, 0.05) 0%, rgba(6, 182, 212, 0.05) 50%, rgba(168, 85, 247, 0.05) 100%)'
+                'linear-gradient(45deg, rgba(168, 85, 247, 0.1) 0%, rgba(236, 72, 153, 0.1) 50%, rgba(6, 182, 212, 0.1) 100%)',
+                'linear-gradient(45deg, rgba(6, 182, 212, 0.1) 0%, rgba(168, 85, 247, 0.1) 50%, rgba(236, 72, 153, 0.1) 100%)',
+                'linear-gradient(45deg, rgba(236, 72, 153, 0.1) 0%, rgba(6, 182, 212, 0.1) 50%, rgba(168, 85, 247, 0.1) 100%)'
               ]
             }}
             transition={{
@@ -387,7 +387,7 @@ const Portfolio: React.FC = () => {
 
           {/* 3D depth effect */}
           <div 
-            className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-slate-900/20 pointer-events-none rounded-[20px]"
+            className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-slate-900/10 pointer-events-none rounded-[20px]"
             style={{ transform: "translateZ(-50px)" }}
           />
         </motion.div>
@@ -434,7 +434,7 @@ const Portfolio: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        {/* Tab Navigation */}
+        {/* Tab Navigation with enhanced translucency */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -452,10 +452,10 @@ const Portfolio: React.FC = () => {
               viewport={{ once: true }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`flex items-center space-x-2 px-8 py-4 rounded-full mx-2 mb-4 transition-all duration-500 relative overflow-hidden ${
+              className={`flex items-center space-x-2 px-8 py-4 rounded-full mx-2 mb-4 transition-all duration-500 relative overflow-hidden backdrop-blur-xl ${
                 activeTab === tab.id
-                  ? 'bg-gradient-to-r from-purple-500 to-pink-500 text-white shadow-lg shadow-purple-500/25'
-                  : 'bg-slate-800/50 text-gray-300 hover:bg-slate-700/50 border border-purple-500/20 hover:border-purple-500/40'
+                  ? 'bg-gradient-to-r from-purple-500/80 to-pink-500/80 text-white shadow-lg shadow-purple-500/25'
+                  : 'bg-slate-800/30 text-gray-300 hover:bg-slate-700/40 border border-purple-500/20 hover:border-purple-500/40'
               }`}
             >
               <tab.icon size={20} />
@@ -463,7 +463,7 @@ const Portfolio: React.FC = () => {
               {activeTab === tab.id && (
                 <motion.div
                   layoutId="activeTab"
-                  className="absolute inset-0 bg-gradient-to-r from-purple-500 to-pink-500 -z-10"
+                  className="absolute inset-0 bg-gradient-to-r from-purple-500/80 to-pink-500/80 -z-10"
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 />
               )}
@@ -492,7 +492,7 @@ const Portfolio: React.FC = () => {
             </motion.div>
           )}
 
-          {/* Tech Stack Tab */}
+          {/* Tech Stack Tab with enhanced translucency */}
           {activeTab === 'techstack' && (
             <motion.div
               key="techstack"
@@ -509,13 +509,13 @@ const Portfolio: React.FC = () => {
                     initial={{ opacity: 0, x: -20 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1, duration: 0.8 }}
-                    className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20"
+                    className="bg-slate-800/30 backdrop-blur-xl rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
                   >
                     <div className="flex justify-between items-center mb-4">
                       <h3 className="text-lg font-semibold text-white">{tech.name}</h3>
                       <span className="text-gray-400">{tech.level}%</span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-3">
+                    <div className="w-full bg-gray-700/50 rounded-full h-3">
                       <motion.div
                         initial={{ width: 0 }}
                         animate={{ width: `${tech.level}%` }}
@@ -529,7 +529,7 @@ const Portfolio: React.FC = () => {
             </motion.div>
           )}
 
-          {/* Certificates Tab */}
+          {/* Certificates Tab with enhanced translucency */}
           {activeTab === 'certificates' && (
             <motion.div
               key="certificates"
@@ -546,10 +546,10 @@ const Portfolio: React.FC = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.8 }}
                   whileHover={{ scale: 1.05 }}
-                  className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
+                  className="bg-slate-800/30 backdrop-blur-xl rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
                 >
                   <div className="flex items-center space-x-4 mb-4">
-                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                    <div className="w-12 h-12 bg-gradient-to-r from-purple-500/80 to-pink-500/80 rounded-full flex items-center justify-center">
                       <cert.icon className="text-white" size={24} />
                     </div>
                     <div>
