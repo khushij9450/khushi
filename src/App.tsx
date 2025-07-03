@@ -8,7 +8,7 @@ import Experience from './components/Experience';
 import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import AnimatedBackground from './components/AnimatedBackground';
+import StarsCanvas from './components/StarsCanvas';
 import CustomCursor from './components/CustomCursor';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
       <CustomCursor />
-      <AnimatedBackground />
+      <StarsCanvas />
 
       <AnimatePresence mode="wait">
         {loading ? (
