@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useVelocity, useAnimationFrame } from 'framer-motion';
+import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useVelocity } from 'framer-motion';
 import { Code, Palette, Database, Smartphone, Globe, Zap, Star, Sparkles, Heart, Coffee, Rocket, Target } from 'lucide-react';
 
 const About: React.FC = () => {
@@ -11,27 +11,26 @@ const About: React.FC = () => {
   const skillsRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.3 });
   
-  // Advanced scroll animations
+  // Smoother scroll animations with reduced intensity
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
+  const y = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.8, 1, 1, 0.8]);
-  const rotate = useTransform(scrollYProgress, [0, 1], [0, 360]);
+  const scale = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0.95, 1, 1, 0.95]);
 
-  // Mouse tracking for interactive elements
+  // Gentler mouse tracking
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
-  const mouseXSpring = useSpring(mouseX, { stiffness: 500, damping: 28 });
-  const mouseYSpring = useSpring(mouseY, { stiffness: 500, damping: 28 });
+  const mouseXSpring = useSpring(mouseX, { stiffness: 150, damping: 50 });
+  const mouseYSpring = useSpring(mouseY, { stiffness: 150, damping: 50 });
 
-  // Velocity tracking for dynamic effects
+  // Reduced velocity tracking
   const mouseXVelocity = useVelocity(mouseX);
   const mouseYVelocity = useVelocity(mouseY);
-  const velocityFactor = useTransform([mouseXVelocity, mouseYVelocity], ([x, y]) => Math.min(Math.sqrt(x * x + y * y) / 1000, 2));
+  const velocityFactor = useTransform([mouseXVelocity, mouseYVelocity], ([x, y]) => Math.min(Math.sqrt(x * x + y * y) / 2000, 1.2));
 
   const movingSkills = [
     "Frontend Development",
@@ -42,14 +41,14 @@ const About: React.FC = () => {
     "DevOps & Deployment"
   ];
 
-  // Enhanced skills with more details
+  // Reduced particle counts and slower animations
   const skills = [
     { 
       name: 'Frontend Development', 
       icon: Code, 
       description: 'React, TypeScript, Next.js, Tailwind CSS',
       color: 'from-blue-400 to-cyan-400',
-      particles: 12,
+      particles: 6,
       delay: 0
     },
     { 
@@ -57,7 +56,7 @@ const About: React.FC = () => {
       icon: Database, 
       description: 'Node.js, Python, PostgreSQL, MongoDB',
       color: 'from-green-400 to-emerald-400',
-      particles: 10,
+      particles: 5,
       delay: 0.1
     },
     { 
@@ -65,7 +64,7 @@ const About: React.FC = () => {
       icon: Palette, 
       description: 'Figma, Adobe XD, Sketch, Prototyping',
       color: 'from-purple-400 to-pink-400',
-      particles: 15,
+      particles: 7,
       delay: 0.2
     },
     { 
@@ -73,7 +72,7 @@ const About: React.FC = () => {
       icon: Smartphone, 
       description: 'React Native, Flutter, Progressive Web Apps',
       color: 'from-orange-400 to-red-400',
-      particles: 8,
+      particles: 4,
       delay: 0.3
     },
     { 
@@ -81,7 +80,7 @@ const About: React.FC = () => {
       icon: Globe, 
       description: 'HTML5, CSS3, JavaScript, TypeScript',
       color: 'from-indigo-400 to-purple-400',
-      particles: 11,
+      particles: 5,
       delay: 0.4
     },
     { 
@@ -89,38 +88,46 @@ const About: React.FC = () => {
       icon: Zap, 
       description: 'Webpack, Vite, SEO, Web Vitals',
       color: 'from-yellow-400 to-orange-400',
-      particles: 9,
+      particles: 4,
       delay: 0.5
     },
   ];
 
-  // Floating elements data
+  // Slower floating elements
   const floatingElements = [
-    { icon: Star, delay: 0, duration: 8 },
-    { icon: Sparkles, delay: 1, duration: 10 },
-    { icon: Heart, delay: 2, duration: 12 },
-    { icon: Coffee, delay: 3, duration: 9 },
-    { icon: Rocket, delay: 4, duration: 11 },
-    { icon: Target, delay: 5, duration: 7 }
+    { icon: Star, delay: 0, duration: 15 },
+    { icon: Sparkles, delay: 2, duration: 18 },
+    { icon: Heart, delay: 4, duration: 20 },
+    { icon: Coffee, delay: 6, duration: 16 },
+    { icon: Rocket, delay: 8, duration: 22 },
+    { icon: Target, delay: 10, duration: 14 }
   ];
 
-  // Mouse tracking
+  // Mouse tracking with throttling
   useEffect(() => {
+    let timeoutId: NodeJS.Timeout;
+    
     const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-        setMousePosition({ x, y });
-        mouseX.set(x);
-        mouseY.set(y);
-      }
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        if (containerRef.current) {
+          const rect = containerRef.current.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          setMousePosition({ x, y });
+          mouseX.set(x);
+          mouseY.set(y);
+        }
+      }, 16); // Throttle to ~60fps
     };
 
     const container = containerRef.current;
     if (container) {
       container.addEventListener('mousemove', handleMouseMove);
-      return () => container.removeEventListener('mousemove', handleMouseMove);
+      return () => {
+        container.removeEventListener('mousemove', handleMouseMove);
+        clearTimeout(timeoutId);
+      };
     }
   }, [mouseX, mouseY]);
 
@@ -133,37 +140,37 @@ const About: React.FC = () => {
     return () => clearInterval(cursorInterval);
   }, []);
 
-  // Change skill every 2.5 seconds
+  // Change skill every 3 seconds (slower)
   useEffect(() => {
     const skillInterval = setInterval(() => {
       setCurrentSkill(prev => (prev + 1) % movingSkills.length);
-    }, 2500);
+    }, 3000);
 
     return () => clearInterval(skillInterval);
   }, []);
 
-  // Particle system for skills
+  // Gentler particle system
   const SkillParticles = ({ count, color }: { count: number; color: string }) => {
     return (
       <>
         {Array.from({ length: count }).map((_, i) => (
           <motion.div
             key={i}
-            className={`absolute w-1 h-1 bg-gradient-to-r ${color} rounded-full`}
+            className={`absolute w-1 h-1 bg-gradient-to-r ${color} rounded-full opacity-60`}
             style={{
               left: `${Math.random() * 100}%`,
               top: `${Math.random() * 100}%`,
             }}
             animate={{
-              y: [0, -20, 0],
-              x: [0, Math.sin(i) * 10, 0],
-              opacity: [0, 1, 0],
+              y: [0, -15, 0],
+              x: [0, Math.sin(i) * 8, 0],
+              opacity: [0, 0.6, 0],
               scale: [0, 1, 0],
             }}
             transition={{
-              duration: 3 + Math.random() * 2,
+              duration: 5 + Math.random() * 3,
               repeat: Infinity,
-              delay: Math.random() * 2,
+              delay: Math.random() * 3,
               ease: "easeInOut"
             }}
           />
@@ -172,7 +179,7 @@ const About: React.FC = () => {
     );
   };
 
-  // 3D Tilt Effect Component
+  // Gentler 3D Tilt Effect
   const TiltCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     const [rotateX, setRotateX] = useState(0);
     const [rotateY, setRotateY] = useState(0);
@@ -184,8 +191,8 @@ const About: React.FC = () => {
       const y = e.clientY - box.top;
       const centerX = box.width / 2;
       const centerY = box.height / 2;
-      const rotateX = (y - centerY) / 4;
-      const rotateY = (centerX - x) / 4;
+      const rotateX = (y - centerY) / 8; // Reduced intensity
+      const rotateY = (centerX - x) / 8; // Reduced intensity
 
       setRotateX(rotateX);
       setRotateY(rotateY);
@@ -202,7 +209,7 @@ const About: React.FC = () => {
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
         animate={{ rotateX, rotateY }}
-        transition={{ type: "spring", stiffness: 300, damping: 30 }}
+        transition={{ type: "spring", stiffness: 200, damping: 40 }}
         style={{ transformStyle: "preserve-3d" }}
       >
         {children}
@@ -212,21 +219,21 @@ const About: React.FC = () => {
 
   return (
     <section id="about" className="py-20 relative overflow-hidden" ref={containerRef}>
-      {/* Interactive Background Elements */}
+      {/* Slower floating background elements */}
       <div className="absolute inset-0 pointer-events-none">
         {floatingElements.map((element, index) => (
           <motion.div
             key={index}
-            className="absolute text-purple-400/20"
+            className="absolute text-purple-400/10"
             style={{
               left: `${20 + (index * 15)}%`,
               top: `${30 + (index * 10)}%`,
             }}
             animate={{
-              y: [0, -50, 0],
-              x: [0, Math.sin(index) * 30, 0],
-              rotate: [0, 360],
-              scale: [1, 1.2, 1],
+              y: [0, -30, 0],
+              x: [0, Math.sin(index) * 20, 0],
+              rotate: [0, 180],
+              scale: [1, 1.1, 1],
             }}
             transition={{
               duration: element.duration,
@@ -235,22 +242,23 @@ const About: React.FC = () => {
               ease: "easeInOut"
             }}
           >
-            <element.icon size={24} />
+            <element.icon size={20} />
           </motion.div>
         ))}
       </div>
 
-      {/* Mouse follower effect */}
+      {/* Gentler mouse follower effect */}
       <motion.div
-        className="absolute w-96 h-96 bg-gradient-to-r from-purple-500/10 to-pink-500/10 rounded-full blur-3xl pointer-events-none"
+        className="absolute w-64 h-64 bg-gradient-to-r from-purple-500/5 to-pink-500/5 rounded-full blur-3xl pointer-events-none"
         style={{
           x: mouseXSpring,
           y: mouseYSpring,
           scale: velocityFactor,
         }}
         animate={{
-          scale: isHovering ? 1.5 : 1,
+          scale: isHovering ? 1.2 : 1,
         }}
+        transition={{ duration: 0.6 }}
       />
 
       <div className="container mx-auto px-6">
@@ -272,7 +280,7 @@ const About: React.FC = () => {
                 backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
               }}
               transition={{
-                duration: 3,
+                duration: 6, // Slower gradient animation
                 repeat: Infinity,
                 ease: "linear"
               }}
@@ -296,9 +304,9 @@ const About: React.FC = () => {
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-16 items-center mb-20">
-          {/* Enhanced Left Side - Story */}
+          {/* Left Side - Story */}
           <motion.div
-            initial={{ opacity: 0, x: -100 }}
+            initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
@@ -308,13 +316,12 @@ const About: React.FC = () => {
           >
             <motion.h3 
               className="text-3xl font-bold text-white mb-6"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
               My Story
             </motion.h3>
             
-            {/* Animated text blocks */}
             <motion.div className="space-y-6">
               {[
                 "I started my journey in web development 5 years ago and have been passionate about creating beautiful, functional websites ever since. I specialize in modern web technologies and love to work on projects that challenge me to grow as a developer.",
@@ -326,7 +333,7 @@ const About: React.FC = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 + index * 0.2, duration: 0.8 }}
                   viewport={{ once: true }}
-                  whileHover={{ x: 10 }}
+                  whileHover={{ x: 5 }}
                   className="text-gray-300 text-lg leading-relaxed cursor-pointer"
                 >
                   {text}
@@ -334,7 +341,7 @@ const About: React.FC = () => {
               ))}
             </motion.div>
 
-            {/* Enhanced Moving Skills Text */}
+            {/* Moving Skills Text with slower animations */}
             <TiltCard className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden">
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"
@@ -345,24 +352,21 @@ const About: React.FC = () => {
                     'linear-gradient(45deg, rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05))'
                   ]
                 }}
-                transition={{ duration: 4, repeat: Infinity }}
+                transition={{ duration: 8, repeat: Infinity }} // Much slower
               />
               
               <h4 className="text-lg font-semibold text-white mb-4 relative z-10">Currently Specializing In:</h4>
               <div className="flex items-center h-8 relative z-10">
                 <motion.span
                   key={currentSkill}
-                  initial={{ opacity: 0, x: 50, rotateX: 90 }}
-                  animate={{ opacity: 1, x: 0, rotateX: 0 }}
-                  exit={{ opacity: 0, x: -50, rotateX: -90 }}
+                  initial={{ opacity: 0, x: 20, scale: 0.9 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -20, scale: 0.9 }}
                   transition={{ 
-                    duration: 0.6,
-                    ease: "easeOut",
-                    type: "spring",
-                    stiffness: 200
+                    duration: 0.8, // Slower transition
+                    ease: "easeOut"
                   }}
                   className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent font-bold text-xl"
-                  style={{ transformStyle: "preserve-3d" }}
                 >
                   {movingSkills[currentSkill]}
                 </motion.span>
@@ -371,7 +375,7 @@ const About: React.FC = () => {
                     opacity: showCursor ? 1 : 0,
                     scaleY: showCursor ? 1 : 0.1
                   }}
-                  transition={{ duration: 0.1 }}
+                  transition={{ duration: 0.2 }}
                   className="ml-2 text-purple-400 font-bold text-2xl origin-bottom"
                 >
                   |
@@ -379,7 +383,7 @@ const About: React.FC = () => {
               </div>
             </TiltCard>
 
-            {/* Enhanced Stats */}
+            {/* Stats with gentler animations */}
             <motion.div 
               className="flex space-x-8 pt-4"
               initial={{ opacity: 0, y: 30 }}
@@ -395,7 +399,7 @@ const About: React.FC = () => {
                 <motion.div 
                   key={stat.label}
                   className="text-center"
-                  whileHover={{ scale: 1.1, y: -5 }}
+                  whileHover={{ scale: 1.05, y: -2 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >
                   <motion.div 
@@ -410,9 +414,8 @@ const About: React.FC = () => {
                     }}
                     viewport={{ once: true }}
                     whileHover={{ 
-                      scale: 1.2,
-                      rotate: [0, -10, 10, 0],
-                      transition: { duration: 0.5 }
+                      scale: 1.1,
+                      transition: { duration: 0.3 }
                     }}
                   >
                     {stat.value}
@@ -423,10 +426,10 @@ const About: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Enhanced Right Side - 3D Character */}
+          {/* Right Side - Character with slower animations */}
           <motion.div
-            initial={{ opacity: 0, x: 100, rotateY: -30 }}
-            whileInView={{ opacity: 1, x: 0, rotateY: 0 }}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: "easeOut" }}
             viewport={{ once: true }}
             className="relative flex justify-center"
@@ -434,58 +437,57 @@ const About: React.FC = () => {
           >
             <motion.div 
               className="relative w-full h-96"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.02 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
-              {/* Animated background rings */}
+              {/* Slower background rings */}
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute inset-0 rounded-full border-2 border-purple-400/20"
+                  className="absolute inset-0 rounded-full border-2 border-purple-400/10"
                   style={{
                     scale: 1 + i * 0.1,
                   }}
                   animate={{ rotate: 360 }}
                   transition={{
-                    duration: 10 + i * 5,
+                    duration: 20 + i * 10, // Much slower
                     repeat: Infinity,
                     ease: "linear"
                   }}
                 />
               ))}
               
-              {/* Main character container */}
               <motion.div 
                 className="relative w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center overflow-hidden"
                 style={{ transformStyle: "preserve-3d" }}
                 animate={{
                   boxShadow: [
-                    "0 0 20px rgba(168, 85, 247, 0.3)",
-                    "0 0 40px rgba(236, 72, 153, 0.3)",
-                    "0 0 20px rgba(168, 85, 247, 0.3)"
+                    "0 0 20px rgba(168, 85, 247, 0.2)",
+                    "0 0 30px rgba(236, 72, 153, 0.2)",
+                    "0 0 20px rgba(168, 85, 247, 0.2)"
                   ]
                 }}
-                transition={{ duration: 3, repeat: Infinity }}
+                transition={{ duration: 6, repeat: Infinity }} // Slower glow
               >
-                {/* Floating particles around character */}
-                {[...Array(20)].map((_, i) => (
+                {/* Fewer, slower particles */}
+                {[...Array(8)].map((_, i) => (
                   <motion.div
                     key={i}
-                    className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"
+                    className="absolute w-1.5 h-1.5 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-40"
                     style={{
                       left: `${Math.random() * 100}%`,
                       top: `${Math.random() * 100}%`,
                     }}
                     animate={{
-                      y: [0, -100, 0],
-                      x: [0, Math.sin(i) * 50, 0],
-                      opacity: [0, 1, 0],
+                      y: [0, -60, 0],
+                      x: [0, Math.sin(i) * 30, 0],
+                      opacity: [0, 0.4, 0],
                       scale: [0, 1, 0],
                     }}
                     transition={{
-                      duration: 4 + Math.random() * 2,
+                      duration: 8 + Math.random() * 4, // Much slower
                       repeat: Infinity,
-                      delay: Math.random() * 2,
+                      delay: Math.random() * 4,
                       ease: "easeInOut"
                     }}
                   />
@@ -494,18 +496,18 @@ const About: React.FC = () => {
                 <motion.div 
                   className="text-8xl relative z-10"
                   animate={{ 
-                    rotateY: [0, 10, -10, 0],
-                    scale: [1, 1.05, 1]
+                    rotateY: [0, 5, -5, 0],
+                    scale: [1, 1.02, 1]
                   }}
                   transition={{ 
-                    duration: 4, 
+                    duration: 8, // Much slower
                     repeat: Infinity,
                     ease: "easeInOut"
                   }}
                   whileHover={{
-                    scale: 1.1,
-                    rotateY: 15,
-                    transition: { duration: 0.3 }
+                    scale: 1.05,
+                    rotateY: 10,
+                    transition: { duration: 0.5 }
                   }}
                 >
                   👩‍💼
@@ -515,7 +517,7 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Enhanced Skills Section */}
+        {/* Skills Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -525,7 +527,7 @@ const About: React.FC = () => {
         >
           <motion.h3 
             className="text-3xl font-bold text-white mb-6"
-            whileHover={{ scale: 1.05 }}
+            whileHover={{ scale: 1.02 }}
           >
             What I Do
           </motion.h3>
@@ -551,8 +553,8 @@ const About: React.FC = () => {
               className="group relative"
             >
               <motion.div
-                initial={{ opacity: 0, y: 50, rotateX: -30 }}
-                whileInView={{ opacity: 1, y: 0, rotateX: 0 }}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 transition={{ 
                   delay: skill.delay, 
                   duration: 0.8,
@@ -561,61 +563,54 @@ const About: React.FC = () => {
                 }}
                 viewport={{ once: true }}
                 whileHover={{ 
-                  scale: 1.05, 
-                  y: -10,
-                  rotateX: 5,
-                  rotateY: 5,
+                  scale: 1.02, 
+                  y: -5,
                   transition: { duration: 0.3 }
                 }}
                 className="relative bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-500 overflow-hidden"
                 style={{ transformStyle: "preserve-3d" }}
               >
-                {/* Particle system for each skill */}
+                {/* Gentler particle system */}
                 <SkillParticles count={skill.particles} color={skill.color} />
                 
-                {/* Animated background gradient */}
+                {/* Slower background gradient */}
                 <motion.div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
                   animate={{
                     background: [
-                      `linear-gradient(45deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05))`,
-                      `linear-gradient(45deg, rgba(236, 72, 153, 0.05), rgba(6, 182, 212, 0.05))`,
-                      `linear-gradient(45deg, rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05))`
+                      `linear-gradient(45deg, rgba(168, 85, 247, 0.03), rgba(236, 72, 153, 0.03))`,
+                      `linear-gradient(45deg, rgba(236, 72, 153, 0.03), rgba(6, 182, 212, 0.03))`,
+                      `linear-gradient(45deg, rgba(6, 182, 212, 0.03), rgba(168, 85, 247, 0.03))`
                     ]
                   }}
-                  transition={{ duration: 3, repeat: Infinity }}
+                  transition={{ duration: 6, repeat: Infinity }} // Slower
                 />
 
-                {/* Icon with enhanced animations */}
+                {/* Icon with gentler animations */}
                 <motion.div 
                   className={`w-16 h-16 bg-gradient-to-r ${skill.color} rounded-full flex items-center justify-center mb-4 relative z-10`}
                   whileHover={{ 
-                    rotate: 360,
-                    scale: 1.1,
-                    boxShadow: "0 0 30px rgba(168, 85, 247, 0.5)"
+                    rotate: 180, // Less rotation
+                    scale: 1.05,
+                    boxShadow: "0 0 20px rgba(168, 85, 247, 0.3)"
                   }}
-                  transition={{ duration: 0.6 }}
+                  transition={{ duration: 0.8 }} // Slower
                   animate={{
                     boxShadow: [
                       "0 0 0px rgba(168, 85, 247, 0)",
-                      "0 0 20px rgba(168, 85, 247, 0.3)",
+                      "0 0 15px rgba(168, 85, 247, 0.2)",
                       "0 0 0px rgba(168, 85, 247, 0)"
                     ]
                   }}
                   style={{ transformStyle: "preserve-3d" }}
                 >
-                  <motion.div
-                    animate={{ rotateY: [0, 360] }}
-                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                  >
-                    <skill.icon className="text-white" size={28} />
-                  </motion.div>
+                  <skill.icon className="text-white" size={28} />
                 </motion.div>
 
                 <motion.h4 
                   className="text-xl font-semibold text-white mb-3 relative z-10"
                   whileHover={{ 
-                    scale: 1.05,
+                    scale: 1.02,
                     color: "#a855f7"
                   }}
                 >
@@ -628,12 +623,6 @@ const About: React.FC = () => {
                 >
                   {skill.description}
                 </motion.p>
-
-                {/* 3D depth effect */}
-                <div 
-                  className="absolute inset-0 bg-gradient-to-br from-transparent via-transparent to-slate-900/20 pointer-events-none rounded-2xl"
-                  style={{ transform: "translateZ(-10px)" }}
-                />
               </motion.div>
             </TiltCard>
           ))}
