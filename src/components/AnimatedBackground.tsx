@@ -59,8 +59,8 @@ const AnimatedBackground: React.FC = () => {
     color: ['#4f46e5', '#7c3aed', '#ec4899', '#06b6d4', '#10b981', '#f59e0b'][i],
   }));
 
-  // Generate nebula clouds
-  const nebulaClouds = Array.from({ length, 4 }, (_, i) => ({
+  // Generate nebula clouds - Fixed the syntax error here
+  const nebulaClouds = Array.from({ length: 4 }, (_, i) => ({
     id: i,
     size: Math.random() * 300 + 200,
     x: Math.random() * 100,
