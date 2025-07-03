@@ -169,44 +169,6 @@ const About: React.FC = () => {
     );
   };
 
-  // Gentler 3D Tilt Effect
-  const TiltCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
-    const [rotateX, setRotateX] = useState(0);
-    const [rotateY, setRotateY] = useState(0);
-
-    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-      const card = e.currentTarget;
-      const box = card.getBoundingClientRect();
-      const x = e.clientX - box.left;
-      const y = e.clientY - box.top;
-      const centerX = box.width / 2;
-      const centerY = box.height / 2;
-      const rotateX = (y - centerY) / 8; // Reduced intensity
-      const rotateY = (centerX - x) / 8; // Reduced intensity
-
-      setRotateX(rotateX);
-      setRotateY(rotateY);
-    };
-
-    const handleMouseLeave = () => {
-      setRotateX(0);
-      setRotateY(0);
-    };
-
-    return (
-      <motion.div
-        className={className}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        animate={{ rotateX, rotateY }}
-        transition={{ type: "spring", stiffness: 200, damping: 40 }}
-        style={{ transformStyle: "preserve-3d" }}
-      >
-        {children}
-      </motion.div>
-    );
-  };
-
   return (
     <section id="about" className="py-20 relative overflow-hidden" ref={containerRef}>
       {/* Slower floating background elements */}
@@ -332,7 +294,11 @@ const About: React.FC = () => {
             </motion.div>
 
             {/* Moving Skills Text - NO BLINKING CURSOR */}
-            <TiltCard className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden">
+            <motion.div
+              className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden"
+              whileHover={{ scale: 1.02 }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            >
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"
                 animate={{
@@ -360,9 +326,8 @@ const About: React.FC = () => {
                 >
                   {movingSkills[currentSkill]}
                 </motion.span>
-                {/* REMOVED BLINKING CURSOR */}
               </div>
-            </TiltCard>
+            </motion.div>
 
             {/* Stats with gentler animations */}
             <motion.div 
@@ -526,86 +491,67 @@ const About: React.FC = () => {
         <motion.div 
           ref={skillsRef}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-          style={{ perspective: "1000px" }}
         >
           {skills.map((skill, index) => (
-            <TiltCard
+            <motion.div
               key={skill.name}
-              className="group relative"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ 
+                delay: skill.delay, 
+                duration: 0.8,
+                type: "spring",
+                stiffness: 100
+              }}
+              viewport={{ once: true }}
+              className="group relative bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 overflow-hidden"
             >
+              {/* Gentler particle system */}
+              <SkillParticles count={skill.particles} color={skill.color} />
+              
+              {/* Slower background gradient */}
               <motion.div
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ 
-                  delay: skill.delay, 
-                  duration: 0.8,
-                  type: "spring",
-                  stiffness: 100
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                animate={{
+                  background: [
+                    `linear-gradient(45deg, rgba(168, 85, 247, 0.03), rgba(236, 72, 153, 0.03))`,
+                    `linear-gradient(45deg, rgba(236, 72, 153, 0.03), rgba(6, 182, 212, 0.03))`,
+                    `linear-gradient(45deg, rgba(6, 182, 212, 0.03), rgba(168, 85, 247, 0.03))`
+                  ]
                 }}
-                viewport={{ once: true }}
+                transition={{ duration: 6, repeat: Infinity }}
+              />
+
+              {/* Icon with gentler animations */}
+              <motion.div 
+                className={`w-16 h-16 bg-gradient-to-r ${skill.color} rounded-full flex items-center justify-center mb-4 relative z-10`}
                 whileHover={{ 
-                  scale: 1.02, 
-                  y: -5,
-                  transition: { duration: 0.3 }
+                  rotate: 15,
+                  scale: 1.05,
                 }}
-                className="relative bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-500 overflow-hidden"
-                style={{ transformStyle: "preserve-3d" }}
+                transition={{ duration: 0.3 }}
               >
-                {/* Gentler particle system */}
-                <SkillParticles count={skill.particles} color={skill.color} />
-                
-                {/* Slower background gradient */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  animate={{
-                    background: [
-                      `linear-gradient(45deg, rgba(168, 85, 247, 0.03), rgba(236, 72, 153, 0.03))`,
-                      `linear-gradient(45deg, rgba(236, 72, 153, 0.03), rgba(6, 182, 212, 0.03))`,
-                      `linear-gradient(45deg, rgba(6, 182, 212, 0.03), rgba(168, 85, 247, 0.03))`
-                    ]
-                  }}
-                  transition={{ duration: 6, repeat: Infinity }} // Slower
-                />
-
-                {/* Icon with gentler animations */}
-                <motion.div 
-                  className={`w-16 h-16 bg-gradient-to-r ${skill.color} rounded-full flex items-center justify-center mb-4 relative z-10`}
-                  whileHover={{ 
-                    rotate: 180, // Less rotation
-                    scale: 1.05,
-                    boxShadow: "0 0 20px rgba(168, 85, 247, 0.3)"
-                  }}
-                  transition={{ duration: 0.8 }} // Slower
-                  animate={{
-                    boxShadow: [
-                      "0 0 0px rgba(168, 85, 247, 0)",
-                      "0 0 15px rgba(168, 85, 247, 0.2)",
-                      "0 0 0px rgba(168, 85, 247, 0)"
-                    ]
-                  }}
-                  style={{ transformStyle: "preserve-3d" }}
-                >
-                  <skill.icon className="text-white" size={28} />
-                </motion.div>
-
-                <motion.h4 
-                  className="text-xl font-semibold text-white mb-3 relative z-10"
-                  whileHover={{ 
-                    scale: 1.02,
-                    color: "#a855f7"
-                  }}
-                >
-                  {skill.name}
-                </motion.h4>
-                
-                <motion.p 
-                  className="text-gray-400 relative z-10"
-                  whileHover={{ color: "#e5e7eb" }}
-                >
-                  {skill.description}
-                </motion.p>
+                <skill.icon className="text-white" size={28} />
               </motion.div>
-            </TiltCard>
+
+              <motion.h4 
+                className="text-xl font-semibold text-white mb-3 relative z-10"
+                whileHover={{ 
+                  scale: 1.02,
+                }}
+                transition={{ duration: 0.2 }}
+              >
+                {skill.name}
+              </motion.h4>
+              
+              <motion.p 
+                className="text-gray-400 relative z-10"
+                whileHover={{ color: "#e5e7eb" }}
+                transition={{ duration: 0.2 }}
+              >
+                {skill.description}
+              </motion.p>
+            </motion.div>
           ))}
         </motion.div>
       </div>
