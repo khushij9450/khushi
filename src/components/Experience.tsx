@@ -437,9 +437,7 @@ const Experience: React.FC = () => {
                                 transition={{ duration: 0.3 }}
                                 className="w-3 h-3 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full mt-2 flex-shrink-0 shadow-lg"
                               />
-                              <motion.span
-                                whileHover={{ x: 5 }}
-                                transition={{ duration: 0.2 }}
+                              <span
                                 className="leading-relaxed text-base group-hover/item:text-white transition-colors duration-300 font-mono"
                               >
                                 {point}
