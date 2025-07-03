@@ -420,7 +420,7 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* What I Bring to the Table Section */}
+        {/* How I Can Contribute & My Key Skills Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
