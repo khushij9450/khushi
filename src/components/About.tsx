@@ -42,14 +42,14 @@ const About: React.FC = () => {
     "Cloud-Native Solutions"
   ];
 
-  // Enhanced tech-themed floating elements
+  // Enhanced tech-themed floating elements with slower animations
   const floatingElements = [
-    { icon: Brain, delay: 0, duration: 15, color: "text-cyan-400/30", path: "M10,10 Q50,5 90,10 Q95,50 90,90 Q50,95 10,90 Q5,50 10,10" },
-    { icon: Hexagon, delay: 2, duration: 18, color: "text-purple-400/30", path: "M20,20 Q80,15 80,80 Q20,85 20,20" },
-    { icon: Activity, delay: 4, duration: 20, color: "text-pink-400/30", path: "M15,50 Q50,20 85,50 Q50,80 15,50" },
-    { icon: Layers, delay: 6, duration: 16, color: "text-blue-400/30", path: "M30,30 Q70,25 70,70 Q30,75 30,30" },
-    { icon: Shield, delay: 8, duration: 22, color: "text-green-400/30", path: "M25,25 Q75,20 75,75 Q25,80 25,25" },
-    { icon: Cloud, delay: 10, duration: 14, color: "text-yellow-400/30", path: "M40,40 Q60,35 60,60 Q40,65 40,40" }
+    { icon: Brain, delay: 0, duration: 25, color: "text-cyan-400/30", path: "M10,10 Q50,5 90,10 Q95,50 90,90 Q50,95 10,90 Q5,50 10,10" },
+    { icon: Hexagon, delay: 2, duration: 30, color: "text-purple-400/30", path: "M20,20 Q80,15 80,80 Q20,85 20,20" },
+    { icon: Activity, delay: 4, duration: 35, color: "text-pink-400/30", path: "M15,50 Q50,20 85,50 Q50,80 15,50" },
+    { icon: Layers, delay: 6, duration: 28, color: "text-blue-400/30", path: "M30,30 Q70,25 70,70 Q30,75 30,30" },
+    { icon: Shield, delay: 8, duration: 40, color: "text-green-400/30", path: "M25,25 Q75,20 75,75 Q25,80 25,25" },
+    { icon: Cloud, delay: 10, duration: 22, color: "text-yellow-400/30", path: "M40,40 Q60,35 60,60 Q40,65 40,40" }
   ];
 
   // Enhanced skills data with advanced tech focus
@@ -110,19 +110,19 @@ const About: React.FC = () => {
     }
   ];
 
-  // Matrix effect with enhanced characters
+  // Matrix effect with enhanced characters - slower animation
   useEffect(() => {
     const chars = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン∑∏∆∇∂∫∞≈≠≤≥±×÷√∛∜∝∴∵∀∃∈∉∪∩⊂⊃⊆⊇';
     const newChars = Array.from({ length: 80 }, () => chars[Math.floor(Math.random() * chars.length)]);
     setMatrixChars(newChars);
   }, []);
 
-  // Data flow effect
+  // Data flow effect - slower
   useEffect(() => {
     const interval = setInterval(() => {
       setDataFlow(prev => {
         const newFlow = [...prev.slice(-10)];
-        if (Math.random() > 0.7) {
+        if (Math.random() > 0.8) {
           newFlow.push({
             id: Date.now(),
             x: Math.random() * 100,
@@ -131,16 +131,16 @@ const About: React.FC = () => {
         }
         return newFlow;
       });
-    }, 500);
+    }, 1000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Scanline animation
+  // Scanline animation - slower
   useEffect(() => {
     const scanInterval = setInterval(() => {
-      setScanlinePosition(prev => (prev + 1) % 100);
-    }, 100);
+      setScanlinePosition(prev => (prev + 0.5) % 100);
+    }, 200);
 
     return () => clearInterval(scanInterval);
   }, []);
@@ -184,7 +184,7 @@ const About: React.FC = () => {
 
   return (
     <section id="about" className="py-20 relative overflow-hidden" ref={containerRef}>
-      {/* Enhanced Matrix Background */}
+      {/* Enhanced Matrix Background - slower */}
       <div className="absolute inset-0 pointer-events-none opacity-8">
         {matrixChars.map((char, index) => (
           <motion.div
@@ -200,9 +200,9 @@ const About: React.FC = () => {
               scale: [0.8, 1.2, 0.8]
             }}
             transition={{
-              duration: 4 + Math.random() * 3,
+              duration: 8 + Math.random() * 6,
               repeat: Infinity,
-              delay: Math.random() * 4,
+              delay: Math.random() * 8,
             }}
           >
             {char}
@@ -210,7 +210,7 @@ const About: React.FC = () => {
         ))}
       </div>
 
-      {/* Advanced Neural Network Background */}
+      {/* Advanced Neural Network Background - slower */}
       <div className="absolute inset-0 opacity-10">
         <svg className="w-full h-full" viewBox="0 0 1000 1000">
           {/* Neural network with enhanced connections */}
@@ -226,9 +226,9 @@ const About: React.FC = () => {
                   opacity: [0.3, 0.9, 0.3]
                 }}
                 transition={{
-                  duration: 3 + Math.random(),
+                  duration: 6 + Math.random() * 2,
                   repeat: Infinity,
-                  delay: i * 0.1
+                  delay: i * 0.2
                 }}
               />
               {/* Enhanced neural connections */}
@@ -243,9 +243,9 @@ const About: React.FC = () => {
                     strokeWidth: [1, 3, 1]
                   }}
                   transition={{
-                    duration: 4,
+                    duration: 8,
                     repeat: Infinity,
-                    delay: i * 0.2
+                    delay: i * 0.4
                   }}
                 />
               )}
@@ -266,7 +266,7 @@ const About: React.FC = () => {
         </svg>
       </div>
 
-      {/* Data Flow Visualization */}
+      {/* Data Flow Visualization - slower */}
       <div className="absolute inset-0 pointer-events-none">
         {dataFlow.map((point) => (
           <motion.div
@@ -284,14 +284,14 @@ const About: React.FC = () => {
               y: [0, Math.random() * 100 - 50]
             }}
             transition={{
-              duration: 3,
+              duration: 6,
               ease: "easeOut"
             }}
           />
         ))}
       </div>
 
-      {/* Enhanced Scanline Effect */}
+      {/* Enhanced Scanline Effect - slower */}
       <motion.div
         className="absolute inset-0 pointer-events-none"
         style={{
@@ -299,7 +299,7 @@ const About: React.FC = () => {
         }}
       />
 
-      {/* Floating tech elements with paths */}
+      {/* Floating tech elements with paths - slower */}
       <div className="absolute inset-0 pointer-events-none">
         {floatingElements.map((element, index) => (
           <motion.div
@@ -325,7 +325,7 @@ const About: React.FC = () => {
                 scale: [1, 1.2, 1]
               }}
               transition={{
-                duration: 4,
+                duration: 8,
                 repeat: Infinity,
                 ease: "easeInOut"
               }}
@@ -365,14 +365,14 @@ const About: React.FC = () => {
           >
             <motion.div
               animate={{ rotate: 360 }}
-              transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+              transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
             >
               <Brain className="text-cyan-400" size={24} />
             </motion.div>
             <span className="text-cyan-300 font-mono text-sm tracking-wider">SYSTEM.ABOUT.INITIALIZE()</span>
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 2, repeat: Infinity }}
+              transition={{ duration: 4, repeat: Infinity }}
               className="w-2 h-2 bg-green-400 rounded-full"
             />
           </motion.div>
@@ -391,7 +391,7 @@ const About: React.FC = () => {
                 backgroundPosition: ['0% 50%', '100% 50%', '0% 50%'],
               }}
               transition={{
-                duration: 4,
+                duration: 8,
                 repeat: Infinity,
                 ease: "linear"
               }}
@@ -408,7 +408,7 @@ const About: React.FC = () => {
                   scale: [1, 1.1, 1]
                 }}
                 transition={{
-                  duration: 3,
+                  duration: 6,
                   repeat: Infinity
                 }}
               />
@@ -429,8 +429,8 @@ const About: React.FC = () => {
           </motion.p>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-20 items-center mb-24">
-          {/* Enhanced Left Side - Story */}
+        <div className="max-w-4xl mx-auto mb-24">
+          {/* Enhanced Story Section */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -446,7 +446,7 @@ const About: React.FC = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <Terminal className="text-cyan-400" size={32} />
-              <span>&gt; Journey.execute()</span>
+              <span>{'>'} Journey.execute()</span>
             </motion.h3>
             
             <motion.div className="space-y-8">
@@ -483,7 +483,7 @@ const About: React.FC = () => {
                     <motion.div
                       className={`w-12 h-12 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-xl flex items-center justify-center ${section.color}`}
                       whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
+                      transition={{ duration: 1.2 }}
                     >
                       <section.icon size={24} />
                     </motion.div>
@@ -527,13 +527,13 @@ const About: React.FC = () => {
                     'linear-gradient(45deg, rgba(236, 72, 153, 0.05), rgba(6, 182, 212, 0.05), rgba(168, 85, 247, 0.05))'
                   ]
                 }}
-                transition={{ duration: 8, repeat: Infinity }}
+                transition={{ duration: 16, repeat: Infinity }}
               />
               
               <div className="relative z-10">
                 <h4 className="text-xl font-semibold text-white mb-6 relative z-10 font-mono flex items-center space-x-3">
                   <Activity className="text-cyan-400" size={24} />
-                  <span>&gt; Currently_Researching:</span>
+                  <span>{'>'} Currently_Researching:</span>
                 </h4>
                 <div className="flex items-center h-12 relative z-10">
                   <motion.span
@@ -551,7 +551,7 @@ const About: React.FC = () => {
                   </motion.span>
                   <motion.span
                     animate={{ opacity: [1, 0] }}
-                    transition={{ duration: 0.5, repeat: Infinity }}
+                    transition={{ duration: 1, repeat: Infinity }}
                     className="ml-3 text-cyan-400 font-bold text-2xl"
                   >
                     _
@@ -587,7 +587,7 @@ const About: React.FC = () => {
                   <motion.div className="flex items-center justify-center mb-3">
                     <motion.div
                       whileHover={{ rotate: 360 }}
-                      transition={{ duration: 0.6 }}
+                      transition={{ duration: 1.2 }}
                       className={`w-12 h-12 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-xl flex items-center justify-center ${stat.color}`}
                     >
                       <stat.icon size={24} />
@@ -614,7 +614,7 @@ const About: React.FC = () => {
                     <motion.div
                       initial={{ width: 0 }}
                       whileInView={{ width: `${stat.progress}%` }}
-                      transition={{ delay: 1.2 + index * 0.1, duration: 1 }}
+                      transition={{ delay: 1.2 + index * 0.1, duration: 2 }}
                       viewport={{ once: true }}
                       className={`h-2 bg-gradient-to-r ${
                         stat.color.includes('cyan') ? 'from-cyan-400 to-cyan-600' :
@@ -628,7 +628,7 @@ const About: React.FC = () => {
                           x: ['-100%', '100%']
                         }}
                         transition={{
-                          duration: 2,
+                          duration: 4,
                           repeat: Infinity,
                           ease: "linear"
                         }}
@@ -639,242 +639,6 @@ const About: React.FC = () => {
                 </motion.div>
               ))}
             </motion.div>
-          </motion.div>
-
-          {/* Enhanced Right Side - Futuristic Personal Image */}
-          <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: "easeOut" }}
-            viewport={{ once: true }}
-            className="relative flex justify-center"
-            style={{ perspective: "1000px" }}
-          >
-            <div className="relative w-96 h-96">
-              {/* Quantum field effect */}
-              <motion.div 
-                className="absolute inset-0 bg-gradient-to-r from-cyan-400/20 via-purple-400/20 to-pink-400/20 rounded-full blur-3xl"
-                animate={{
-                  scale: [1, 1.4, 1],
-                  opacity: [0.3, 0.8, 0.3],
-                  rotate: [0, 180, 360]
-                }}
-                transition={{
-                  duration: 10,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              />
-              
-              {/* Enhanced tech rings with data visualization */}
-              {[...Array(6)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className="absolute inset-0 rounded-full border-2"
-                  style={{
-                    scale: 1 + i * 0.08,
-                    borderColor: i % 3 === 0 ? 'rgba(6, 182, 212, 0.3)' : 
-                                i % 3 === 1 ? 'rgba(168, 85, 247, 0.3)' : 
-                                'rgba(236, 72, 153, 0.3)'
-                  }}
-                  animate={{ 
-                    rotate: i % 2 === 0 ? 360 : -360,
-                    borderColor: [
-                      'rgba(6, 182, 212, 0.3)',
-                      'rgba(168, 85, 247, 0.3)',
-                      'rgba(236, 72, 153, 0.3)',
-                      'rgba(6, 182, 212, 0.3)'
-                    ]
-                  }}
-                  transition={{
-                    rotate: {
-                      duration: 20 + i * 3,
-                      repeat: Infinity,
-                      ease: "linear"
-                    },
-                    borderColor: {
-                      duration: 6,
-                      repeat: Infinity
-                    }
-                  }}
-                />
-              ))}
-              
-              {/* Main image container with advanced holographic effects */}
-              <motion.div 
-                className="relative w-full h-full rounded-full overflow-hidden border-4 border-cyan-400/30 shadow-2xl bg-gradient-to-br from-slate-900/50 to-purple-900/50 backdrop-blur-sm"
-                style={{ transformStyle: "preserve-3d" }}
-                animate={{
-                  boxShadow: [
-                    "0 0 40px rgba(6, 182, 212, 0.4)",
-                    "0 0 60px rgba(168, 85, 247, 0.5)",
-                    "0 0 40px rgba(6, 182, 212, 0.4)"
-                  ]
-                }}
-                transition={{ duration: 5, repeat: Infinity }}
-                whileHover={{
-                  scale: 1.05,
-                  rotateY: 15,
-                  transition: { duration: 0.5 }
-                }}
-              >
-                {/* Advanced hexagonal grid overlay */}
-                <div className="absolute inset-0 opacity-15 z-10">
-                  <svg className="w-full h-full" viewBox="0 0 100 100">
-                    <defs>
-                      <pattern id="hexGrid" x="0" y="0" width="15" height="15" patternUnits="userSpaceOnUse">
-                        <polygon points="7.5,1 13,4 13,10 7.5,13 2,10 2,4" stroke="currentColor" strokeWidth="0.5" fill="none"/>
-                        <circle cx="7.5" cy="7.5" r="1" fill="currentColor" opacity="0.3"/>
-                      </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#hexGrid)" className="text-cyan-400"/>
-                  </svg>
-                </div>
-                
-                {/* Personal image */}
-                <motion.img
-                  src="/image.png"
-                  alt="Sarah Johnson"
-                  className="w-full h-full object-cover object-center relative z-20 rounded-full"
-                  initial={{ scale: 1.1, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 1, delay: 0.3 }}
-                  whileHover={{
-                    scale: 1.05,
-                    transition: { duration: 0.6 }
-                  }}
-                />
-                
-                {/* Advanced holographic overlay with multiple layers */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-cyan-400/10 via-transparent to-purple-400/10 z-30"
-                  animate={{
-                    background: [
-                      'linear-gradient(45deg, rgba(6, 182, 212, 0.1), transparent, rgba(168, 85, 247, 0.1))',
-                      'linear-gradient(45deg, rgba(168, 85, 247, 0.1), transparent, rgba(236, 72, 153, 0.1))',
-                      'linear-gradient(45deg, rgba(236, 72, 153, 0.1), transparent, rgba(6, 182, 212, 0.1))'
-                    ]
-                  }}
-                  transition={{ duration: 8, repeat: Infinity }}
-                />
-                
-                {/* Quantum data particles */}
-                {[...Array(25)].map((_, i) => (
-                  <motion.div
-                    key={i}
-                    className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-80 z-40"
-                    style={{
-                      left: `${Math.random() * 100}%`,
-                      top: `${Math.random() * 100}%`,
-                    }}
-                    animate={{
-                      y: [0, -120, 0],
-                      x: [0, Math.sin(i) * 60, 0],
-                      opacity: [0, 1, 0],
-                      scale: [0, 2.5, 0],
-                    }}
-                    transition={{
-                      duration: 5 + Math.random() * 3,
-                      repeat: Infinity,
-                      delay: Math.random() * 4,
-                      ease: "easeInOut"
-                    }}
-                  />
-                ))}
-                
-                {/* Advanced scanning effect with multiple lines */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-b from-transparent via-cyan-400/40 to-transparent h-3 z-50"
-                  animate={{
-                    y: ['-15%', '115%']
-                  }}
-                  transition={{
-                    duration: 4,
-                    repeat: Infinity,
-                    ease: "linear"
-                  }}
-                />
-                
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/30 to-transparent w-3 z-50"
-                  animate={{
-                    x: ['-15%', '115%']
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "linear",
-                    delay: 1
-                  }}
-                />
-              </motion.div>
-              
-              {/* Enhanced floating tech elements with advanced animations */}
-              <motion.div
-                className="absolute -top-10 -right-10 w-20 h-20 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-cyan-400/30 shadow-2xl"
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 90, 180, 270, 360],
-                  y: [0, -15, 0]
-                }}
-                transition={{
-                  duration: 8,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <Brain className="text-white" size={28} />
-              </motion.div>
-              
-              <motion.div
-                className="absolute -bottom-10 -left-10 w-16 h-16 bg-gradient-to-r from-purple-400 to-pink-400 rounded-2xl flex items-center justify-center backdrop-blur-sm border border-purple-400/30 shadow-2xl"
-                animate={{
-                  scale: [1, 1.4, 1],
-                  rotate: [360, 270, 180, 90, 0],
-                  y: [0, 15, 0]
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <Database className="text-white" size={22} />
-              </motion.div>
-
-              {/* Additional quantum elements */}
-              <motion.div
-                className="absolute top-1/4 -left-8 w-12 h-12 bg-gradient-to-r from-green-400 to-cyan-400 rounded-xl flex items-center justify-center backdrop-blur-sm border border-green-400/30"
-                animate={{
-                  x: [0, -20, 0],
-                  rotate: [0, 180, 360],
-                  scale: [1, 1.2, 1]
-                }}
-                transition={{
-                  duration: 9,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <Hexagon className="text-white" size={18} />
-              </motion.div>
-
-              <motion.div
-                className="absolute bottom-1/4 -right-8 w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-xl flex items-center justify-center backdrop-blur-sm border border-yellow-400/30"
-                animate={{
-                  x: [0, 20, 0],
-                  rotate: [0, -180, -360],
-                  scale: [1, 1.3, 1]
-                }}
-                transition={{
-                  duration: 7,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-              >
-                <Activity className="text-white" size={20} />
-              </motion.div>
-            </div>
           </motion.div>
         </div>
 
@@ -896,14 +660,14 @@ const About: React.FC = () => {
             >
               <motion.div
                 animate={{ rotate: 360 }}
-                transition={{ duration: 4, repeat: Infinity, ease: "linear" }}
+                transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
               >
                 <Layers className="text-cyan-400" size={24} />
               </motion.div>
               <span className="text-cyan-300 font-mono text-sm tracking-wider">EXPERTISE.LOAD_ALL()</span>
               <motion.div
                 animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
+                transition={{ duration: 4, repeat: Infinity }}
                 className="w-2 h-2 bg-green-400 rounded-full"
               />
             </motion.div>
@@ -966,7 +730,7 @@ const About: React.FC = () => {
                       rotate: 360,
                       scale: 1.2
                     }}
-                    transition={{ duration: 0.8 }}
+                    transition={{ duration: 1.6 }}
                   >
                     {skill.icon}
                   </motion.div>
@@ -1002,7 +766,7 @@ const About: React.FC = () => {
                       <motion.div
                         initial={{ width: 0 }}
                         whileInView={{ width: `${skill.level}%` }}
-                        transition={{ delay: index * 0.1 + 0.7, duration: 1.5 }}
+                        transition={{ delay: index * 0.1 + 0.7, duration: 3 }}
                         viewport={{ once: true }}
                         className="h-2 bg-gradient-to-r from-cyan-400 to-purple-400 rounded-full relative overflow-hidden"
                       >
@@ -1011,7 +775,7 @@ const About: React.FC = () => {
                             x: ['-100%', '100%']
                           }}
                           transition={{
-                            duration: 2,
+                            duration: 4,
                             repeat: Infinity,
                             ease: "linear"
                           }}
@@ -1041,7 +805,7 @@ const About: React.FC = () => {
                     ))}
                   </motion.div>
 
-                  {/* Quantum particles for each skill */}
+                  {/* Quantum particles for each skill - slower */}
                   {[...Array(8)].map((_, i) => (
                     <motion.div
                       key={i}
@@ -1057,9 +821,9 @@ const About: React.FC = () => {
                         scale: [0, 1.5, 0],
                       }}
                       transition={{
-                        duration: 4 + Math.random() * 2,
+                        duration: 8 + Math.random() * 4,
                         repeat: Infinity,
-                        delay: Math.random() * 3,
+                        delay: Math.random() * 6,
                         ease: "easeInOut"
                       }}
                     />

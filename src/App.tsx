@@ -9,7 +9,6 @@ import Portfolio from './components/Portfolio';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import StarsCanvas from './components/StarsCanvas';
-import CustomCursor from './components/CustomCursor';
 
 function App() {
   const [loading, setLoading] = useState(true);
@@ -24,8 +23,6 @@ function App() {
 
   return (
     <div className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
-      <CustomCursor />
-      
       {/* Stars background - positioned with proper z-index */}
       <StarsCanvas />
 
