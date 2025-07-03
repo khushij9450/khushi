@@ -12,7 +12,7 @@ const CustomCursor: React.FC = () => {
       
       // Add trail point
       const newTrail = { x: e.clientX, y: e.clientY, id: Date.now() };
-      setTrails(prev => [...prev.slice(-8), newTrail]);
+      setTrails(prev => [...prev.slice(-6), newTrail]);
     };
 
     const handleMouseEnter = () => setIsHovering(true);
@@ -39,69 +39,93 @@ const CustomCursor: React.FC = () => {
 
   return (
     <>
-      {/* Trail dots */}
+      {/* Trail dots with enhanced visibility */}
       {trails.map((trail, index) => (
         <motion.div
           key={trail.id}
-          className="fixed pointer-events-none z-[9998] rounded-full"
+          className="fixed pointer-events-none z-[9998] rounded-full border border-cyan-400/40"
           style={{
-            left: trail.x - 6,
-            top: trail.y - 6,
-            width: 12,
-            height: 12,
+            left: trail.x - 4,
+            top: trail.y - 4,
+            width: 8,
+            height: 8,
           }}
           initial={{ 
             opacity: 0.8,
             scale: 1,
-            background: 'rgba(168, 85, 247, 0.6)'
+            background: 'rgba(6, 182, 212, 0.3)',
+            borderColor: 'rgba(6, 182, 212, 0.6)'
           }}
           animate={{ 
             opacity: 0,
-            scale: 0.5,
-            background: 'rgba(168, 85, 247, 0.2)'
+            scale: 0.3,
+            background: 'rgba(6, 182, 212, 0.1)',
+            borderColor: 'rgba(6, 182, 212, 0.2)'
           }}
           transition={{ 
-            duration: 0.8,
+            duration: 0.6,
             ease: "easeOut"
           }}
         />
       ))}
 
-      {/* Main cursor - made bigger */}
+      {/* Main cursor with high contrast design */}
       <motion.div
-        className="fixed pointer-events-none z-[9999] rounded-full mix-blend-difference"
+        className="fixed pointer-events-none z-[9999] rounded-full border-2"
         style={{
-          left: mousePosition.x - 15,
-          top: mousePosition.y - 15,
+          left: mousePosition.x - 16,
+          top: mousePosition.y - 16,
         }}
         animate={{
-          scale: isHovering ? 1.5 : 1,
+          scale: isHovering ? 1.8 : 1,
           background: isHovering 
-            ? 'linear-gradient(45deg, #06b6d4, #10b981)' 
-            : 'linear-gradient(45deg, #a855f7, #ec4899)',
+            ? 'rgba(6, 182, 212, 0.8)' 
+            : 'rgba(6, 182, 212, 0.6)',
+          borderColor: isHovering
+            ? '#06b6d4'
+            : '#0891b2',
+          boxShadow: isHovering
+            ? '0 0 25px rgba(6, 182, 212, 0.8), inset 0 0 15px rgba(255, 255, 255, 0.3)'
+            : '0 0 15px rgba(6, 182, 212, 0.6), inset 0 0 8px rgba(255, 255, 255, 0.2)'
         }}
         transition={{
           type: "spring",
-          stiffness: 500,
+          stiffness: 400,
           damping: 28,
           mass: 0.5
         }}
         style={{
-          width: 30,
-          height: 30,
+          width: 32,
+          height: 32,
         }}
-      />
+      >
+        {/* Inner dot for better visibility */}
+        <motion.div
+          className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 rounded-full bg-white"
+          animate={{
+            width: isHovering ? 6 : 4,
+            height: isHovering ? 6 : 4,
+            opacity: isHovering ? 0.9 : 0.7
+          }}
+          transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 25
+          }}
+        />
+      </motion.div>
 
-      {/* Outer ring for hover effect - made bigger */}
+      {/* Outer ring for enhanced hover effect */}
       <motion.div
-        className="fixed pointer-events-none z-[9997] rounded-full border-2 border-white/30"
+        className="fixed pointer-events-none z-[9997] rounded-full border border-cyan-300/50"
         style={{
-          left: mousePosition.x - 30,
-          top: mousePosition.y - 30,
+          left: mousePosition.x - 24,
+          top: mousePosition.y - 24,
         }}
         animate={{
-          scale: isHovering ? 2 : 0,
-          opacity: isHovering ? 0.6 : 0,
+          scale: isHovering ? 1.5 : 0,
+          opacity: isHovering ? 0.8 : 0,
+          borderColor: isHovering ? 'rgba(6, 182, 212, 0.8)' : 'rgba(6, 182, 212, 0.3)'
         }}
         transition={{
           type: "spring",
@@ -109,8 +133,35 @@ const CustomCursor: React.FC = () => {
           damping: 20
         }}
         style={{
-          width: 60,
-          height: 60,
+          width: 48,
+          height: 48,
+        }}
+      />
+
+      {/* Pulsing effect for better visibility */}
+      <motion.div
+        className="fixed pointer-events-none z-[9996] rounded-full"
+        style={{
+          left: mousePosition.x - 20,
+          top: mousePosition.y - 20,
+        }}
+        animate={{
+          scale: [1, 1.3, 1],
+          opacity: [0.2, 0.4, 0.2],
+          background: [
+            'rgba(6, 182, 212, 0.1)',
+            'rgba(6, 182, 212, 0.2)',
+            'rgba(6, 182, 212, 0.1)'
+          ]
+        }}
+        transition={{
+          duration: 2,
+          repeat: Infinity,
+          ease: "easeInOut"
+        }}
+        style={{
+          width: 40,
+          height: 40,
         }}
       />
     </>

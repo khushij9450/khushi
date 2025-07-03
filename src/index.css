@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Enhanced custom cursor styles */
+/* Enhanced custom cursor styles for dark theme */
 * {
   cursor: none;
 }
@@ -13,33 +13,36 @@ body {
   background: #0a0a0a;
 }
 
-/* Enhanced custom cursor */
+/* Enhanced custom cursor with better visibility */
 .custom-cursor {
   position: fixed;
   top: 0;
   left: 0;
   width: 32px;
   height: 32px;
-  background: linear-gradient(45deg, #06b6d4, #a855f7, #ec4899);
+  background: rgba(6, 182, 212, 0.8);
+  border: 2px solid #06b6d4;
   border-radius: 50%;
   pointer-events: none;
   z-index: 9999;
-  mix-blend-mode: difference;
   transition: transform 0.1s ease;
-  box-shadow: 0 0 20px rgba(6, 182, 212, 0.5);
+  box-shadow: 
+    0 0 20px rgba(6, 182, 212, 0.6),
+    inset 0 0 10px rgba(255, 255, 255, 0.2);
 }
 
 .custom-cursor-trail {
   position: fixed;
   top: 0;
   left: 0;
-  width: 14px;
-  height: 14px;
-  background: rgba(168, 85, 247, 0.6);
+  width: 8px;
+  height: 8px;
+  background: rgba(6, 182, 212, 0.4);
+  border: 1px solid rgba(6, 182, 212, 0.6);
   border-radius: 50%;
   pointer-events: none;
   z-index: 9998;
-  box-shadow: 0 0 10px rgba(168, 85, 247, 0.3);
+  box-shadow: 0 0 8px rgba(6, 182, 212, 0.4);
 }
 
 /* Enhanced hover effects for interactive elements */
@@ -53,8 +56,11 @@ input:hover ~ .custom-cursor,
 textarea:hover ~ .custom-cursor,
 [role="button"]:hover ~ .custom-cursor {
   transform: scale(1.8);
-  background: linear-gradient(45deg, #06b6d4, #10b981, #f59e0b);
-  box-shadow: 0 0 30px rgba(6, 182, 212, 0.8);
+  background: rgba(6, 182, 212, 0.9);
+  border-color: #0891b2;
+  box-shadow: 
+    0 0 30px rgba(6, 182, 212, 0.8),
+    inset 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
 /* Smooth scrolling with enhanced behavior */
