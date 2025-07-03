@@ -329,7 +329,7 @@ const About: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Enhanced Personal Image with transparent background */}
+          {/* Right Side - Enhanced Personal Image with increased radius */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -360,9 +360,9 @@ const About: React.FC = () => {
                 />
               ))}
               
-              {/* Main image container - circular without rectangular box */}
+              {/* Main image container - increased size */}
               <motion.div 
-                className="relative w-80 h-80 mx-auto rounded-full overflow-hidden border-4 border-white/10 shadow-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10"
+                className="relative w-96 h-96 mx-auto rounded-full overflow-hidden border-4 border-white/10 shadow-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10"
                 style={{ transformStyle: "preserve-3d" }}
                 animate={{
                   boxShadow: [
