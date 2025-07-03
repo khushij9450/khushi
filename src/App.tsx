@@ -26,7 +26,7 @@ function App() {
     <div className="relative min-h-screen bg-[#0a0a0a] overflow-hidden">
       <CustomCursor />
       
-      {/* Stars background - positioned first with lowest z-index */}
+      {/* Stars background - positioned with proper z-index */}
       <StarsCanvas />
 
       <AnimatePresence mode="wait">

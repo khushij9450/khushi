@@ -43,7 +43,7 @@ const SplashScreen: React.FC = () => {
       clearInterval(progressInterval);
       clearInterval(phaseInterval);
     };
-  }, []);
+  }, [phases.length]);
 
   return (
     <motion.div
@@ -233,7 +233,10 @@ const SplashScreen: React.FC = () => {
                 animate={{ rotate: 360 }}
                 transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
               >
-                <phases[currentPhase].icon size={24} className="text-purple-400" />
+                {React.createElement(phases[currentPhase].icon, { 
+                  size: 24, 
+                  className: "text-purple-400" 
+                })}
               </motion.div>
               <span>{phases[currentPhase].text}</span>
             </motion.div>
