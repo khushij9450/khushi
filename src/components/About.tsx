@@ -4,7 +4,6 @@ import { Code, Palette, Database, Smartphone, Globe, Zap, Star, Sparkles, Heart,
 
 const About: React.FC = () => {
   const [currentSkill, setCurrentSkill] = useState(0);
-  const [showCursor, setShowCursor] = useState(true);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -131,20 +130,11 @@ const About: React.FC = () => {
     }
   }, [mouseX, mouseY]);
 
-  // Toggle cursor every 500ms
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor(prev => !prev);
-    }, 500);
-
-    return () => clearInterval(cursorInterval);
-  }, []);
-
-  // Change skill every 3 seconds (slower)
+  // Change skill every 5 seconds (much slower)
   useEffect(() => {
     const skillInterval = setInterval(() => {
       setCurrentSkill(prev => (prev + 1) % movingSkills.length);
-    }, 3000);
+    }, 5000); // Increased from 3000 to 5000ms
 
     return () => clearInterval(skillInterval);
   }, []);
@@ -341,7 +331,7 @@ const About: React.FC = () => {
               ))}
             </motion.div>
 
-            {/* Moving Skills Text with slower animations */}
+            {/* Moving Skills Text - NO BLINKING CURSOR */}
             <TiltCard className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 relative overflow-hidden">
               <motion.div
                 className="absolute inset-0 bg-gradient-to-r from-purple-500/5 to-pink-500/5"
@@ -363,23 +353,14 @@ const About: React.FC = () => {
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   exit={{ opacity: 0, x: -20, scale: 0.9 }}
                   transition={{ 
-                    duration: 0.8, // Slower transition
+                    duration: 1.2, // Much slower transition
                     ease: "easeOut"
                   }}
                   className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent font-bold text-xl"
                 >
                   {movingSkills[currentSkill]}
                 </motion.span>
-                <motion.span
-                  animate={{ 
-                    opacity: showCursor ? 1 : 0,
-                    scaleY: showCursor ? 1 : 0.1
-                  }}
-                  transition={{ duration: 0.2 }}
-                  className="ml-2 text-purple-400 font-bold text-2xl origin-bottom"
-                >
-                  |
-                </motion.span>
+                {/* REMOVED BLINKING CURSOR */}
               </div>
             </TiltCard>
 
