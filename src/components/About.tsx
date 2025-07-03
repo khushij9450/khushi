@@ -40,58 +40,6 @@ const About: React.FC = () => {
     "DevOps & Deployment"
   ];
 
-  // Reduced particle counts and slower animations
-  const skills = [
-    { 
-      name: 'Frontend Development', 
-      icon: Code, 
-      description: 'React, TypeScript, Next.js, Tailwind CSS',
-      color: 'from-blue-400 to-cyan-400',
-      particles: 6,
-      delay: 0
-    },
-    { 
-      name: 'Backend Development', 
-      icon: Database, 
-      description: 'Node.js, Python, PostgreSQL, MongoDB',
-      color: 'from-green-400 to-emerald-400',
-      particles: 5,
-      delay: 0.1
-    },
-    { 
-      name: 'UI/UX Design', 
-      icon: Palette, 
-      description: 'Figma, Adobe XD, Sketch, Prototyping',
-      color: 'from-purple-400 to-pink-400',
-      particles: 7,
-      delay: 0.2
-    },
-    { 
-      name: 'Mobile Development', 
-      icon: Smartphone, 
-      description: 'React Native, Flutter, Progressive Web Apps',
-      color: 'from-orange-400 to-red-400',
-      particles: 4,
-      delay: 0.3
-    },
-    { 
-      name: 'Web Technologies', 
-      icon: Globe, 
-      description: 'HTML5, CSS3, JavaScript, TypeScript',
-      color: 'from-indigo-400 to-purple-400',
-      particles: 5,
-      delay: 0.4
-    },
-    { 
-      name: 'Performance Optimization', 
-      icon: Zap, 
-      description: 'Webpack, Vite, SEO, Web Vitals',
-      color: 'from-yellow-400 to-orange-400',
-      particles: 4,
-      delay: 0.5
-    },
-  ];
-
   // Slower floating elements
   const floatingElements = [
     { icon: Star, delay: 0, duration: 15 },
@@ -141,22 +89,6 @@ const About: React.FC = () => {
     }
   ];
 
-  // Key Skills data with progress bars
-  const keySkills = [
-    { name: "JavaScript", level: 95 },
-    { name: "TypeScript", level: 90 },
-    { name: "React.js", level: 95 },
-    { name: "Next.js", level: 85 },
-    { name: "Node.js", level: 88 },
-    { name: "Python", level: 80 },
-    { name: "PostgreSQL", level: 85 },
-    { name: "MongoDB", level: 82 },
-    { name: "AWS", level: 75 },
-    { name: "Docker", level: 78 },
-    { name: "Git", level: 92 },
-    { name: "Figma", level: 85 }
-  ];
-
   // Mouse tracking with throttling
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -193,36 +125,6 @@ const About: React.FC = () => {
 
     return () => clearInterval(skillInterval);
   }, []);
-
-  // Gentler particle system
-  const SkillParticles = ({ count, color }: { count: number; color: string }) => {
-    return (
-      <>
-        {Array.from({ length: count }).map((_, i) => (
-          <motion.div
-            key={i}
-            className={`absolute w-1 h-1 bg-gradient-to-r ${color} rounded-full opacity-60`}
-            style={{
-              left: `${Math.random() * 100}%`,
-              top: `${Math.random() * 100}%`,
-            }}
-            animate={{
-              y: [0, -15, 0],
-              x: [0, Math.sin(i) * 8, 0],
-              opacity: [0, 0.6, 0],
-              scale: [0, 1, 0],
-            }}
-            transition={{
-              duration: 5 + Math.random() * 3,
-              repeat: Infinity,
-              delay: Math.random() * 3,
-              ease: "easeInOut"
-            }}
-          />
-        ))}
-      </>
-    );
-  };
 
   return (
     <section id="about" className="py-20 relative overflow-hidden" ref={containerRef}>
@@ -654,87 +556,6 @@ const About: React.FC = () => {
               </motion.div>
             ))}
           </div>
-        </motion.div>
-
-        {/* Key Skills Progress Bars */}
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <motion.h3 
-            className="text-3xl font-bold text-white mb-6"
-            whileHover={{ scale: 1.02 }}
-          >
-            Technical{' '}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Proficiency
-            </span>
-          </motion.h3>
-          <motion.p 
-            className="text-gray-300 text-lg max-w-2xl mx-auto"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
-            viewport={{ once: true }}
-          >
-            My expertise across modern web development technologies and tools.
-          </motion.p>
-        </motion.div>
-
-        <motion.div 
-          ref={skillsRef}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {keySkills.map((skill, index) => (
-            <motion.div
-              key={skill.name}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ 
-                delay: index * 0.1, 
-                duration: 0.6,
-                type: "spring",
-                stiffness: 100
-              }}
-              viewport={{ once: true }}
-              className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
-              whileHover={{ scale: 1.02, y: -2 }}
-            >
-              <div className="flex justify-between items-center mb-3">
-                <h4 className="text-lg font-semibold text-white">{skill.name}</h4>
-                <span className="text-purple-400 font-medium">{skill.level}%</span>
-              </div>
-              
-              <div className="w-full bg-slate-700/50 rounded-full h-2 overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  whileInView={{ width: `${skill.level}%` }}
-                  transition={{ 
-                    delay: index * 0.1 + 0.3, 
-                    duration: 1.2,
-                    ease: "easeOut"
-                  }}
-                  viewport={{ once: true }}
-                  className="h-full bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 rounded-full relative"
-                >
-                  <motion.div
-                    animate={{
-                      x: ['-100%', '100%']
-                    }}
-                    transition={{
-                      duration: 2,
-                      repeat: Infinity,
-                      ease: "linear"
-                    }}
-                    className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent"
-                  />
-                </motion.div>
-              </div>
-            </motion.div>
-          ))}
         </motion.div>
       </div>
     </section>
