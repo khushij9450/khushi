@@ -329,7 +329,7 @@ const About: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Enhanced Personal Image */}
+          {/* Right Side - Enhanced Personal Image without rectangular box */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -347,7 +347,7 @@ const About: React.FC = () => {
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute inset-0 rounded-2xl border-2 border-purple-400/10"
+                  className="absolute inset-0 rounded-full border-2 border-purple-400/10"
                   style={{
                     scale: 1 + i * 0.1,
                   }}
@@ -360,21 +360,27 @@ const About: React.FC = () => {
                 />
               ))}
               
+              {/* Main image container - circular without rectangular box */}
               <motion.div 
-                className="relative w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl overflow-hidden border-4 border-white/10"
+                className="relative w-80 h-80 mx-auto rounded-full overflow-hidden border-4 border-white/10 shadow-2xl"
                 style={{ transformStyle: "preserve-3d" }}
                 animate={{
                   boxShadow: [
-                    "0 0 20px rgba(168, 85, 247, 0.2)",
-                    "0 0 30px rgba(236, 72, 153, 0.2)",
-                    "0 0 20px rgba(168, 85, 247, 0.2)"
+                    "0 0 30px rgba(168, 85, 247, 0.3)",
+                    "0 0 50px rgba(236, 72, 153, 0.4)",
+                    "0 0 30px rgba(168, 85, 247, 0.3)"
                   ]
                 }}
-                transition={{ duration: 6, repeat: Infinity }} // Slower glow
+                transition={{ duration: 6, repeat: Infinity }}
+                whileHover={{
+                  scale: 1.05,
+                  rotateY: 10,
+                  transition: { duration: 0.5 }
+                }}
               >
                 {/* Personal image */}
                 <motion.img
-                  src="/untitled (1).jpeg"
+                  src="/public/image.png"
                   alt="Sarah Johnson"
                   className="w-full h-full object-cover"
                   initial={{ scale: 1.1, opacity: 0 }}
@@ -388,12 +394,12 @@ const About: React.FC = () => {
                 
                 {/* Enhanced gradient overlay */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-purple-500/30 via-transparent to-pink-500/30"
+                  className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-pink-500/20"
                   animate={{
                     background: [
-                      'linear-gradient(45deg, rgba(168, 85, 247, 0.3), transparent, rgba(236, 72, 153, 0.3))',
-                      'linear-gradient(45deg, rgba(236, 72, 153, 0.3), transparent, rgba(6, 182, 212, 0.3))',
-                      'linear-gradient(45deg, rgba(6, 182, 212, 0.3), transparent, rgba(168, 85, 247, 0.3))'
+                      'linear-gradient(45deg, rgba(168, 85, 247, 0.2), transparent, rgba(236, 72, 153, 0.2))',
+                      'linear-gradient(45deg, rgba(236, 72, 153, 0.2), transparent, rgba(6, 182, 212, 0.2))',
+                      'linear-gradient(45deg, rgba(6, 182, 212, 0.2), transparent, rgba(168, 85, 247, 0.2))'
                     ]
                   }}
                   transition={{ duration: 8, repeat: Infinity }}
@@ -437,6 +443,33 @@ const About: React.FC = () => {
                   }}
                 />
               </motion.div>
+
+              {/* Decorative floating elements around the image */}
+              <motion.div
+                className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  rotate: [0, 180, 360]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              <motion.div
+                className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [360, 180, 0]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
             </motion.div>
           </motion.div>
         </div>
