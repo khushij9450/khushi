@@ -329,7 +329,7 @@ const About: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Character with slower animations */}
+          {/* Right Side - Enhanced Personal Image */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -347,7 +347,7 @@ const About: React.FC = () => {
               {[...Array(3)].map((_, i) => (
                 <motion.div
                   key={i}
-                  className="absolute inset-0 rounded-full border-2 border-purple-400/10"
+                  className="absolute inset-0 rounded-2xl border-2 border-purple-400/10"
                   style={{
                     scale: 1 + i * 0.1,
                   }}
@@ -361,7 +361,7 @@ const About: React.FC = () => {
               ))}
               
               <motion.div 
-                className="relative w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl flex items-center justify-center overflow-hidden"
+                className="relative w-full h-full bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-2xl overflow-hidden border-4 border-white/10"
                 style={{ transformStyle: "preserve-3d" }}
                 animate={{
                   boxShadow: [
@@ -372,6 +372,33 @@ const About: React.FC = () => {
                 }}
                 transition={{ duration: 6, repeat: Infinity }} // Slower glow
               >
+                {/* Personal image */}
+                <motion.img
+                  src="/untitled (1).jpeg"
+                  alt="Sarah Johnson"
+                  className="w-full h-full object-cover"
+                  initial={{ scale: 1.1, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.3 }}
+                  whileHover={{
+                    scale: 1.05,
+                    transition: { duration: 0.6 }
+                  }}
+                />
+                
+                {/* Enhanced gradient overlay */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-purple-500/30 via-transparent to-pink-500/30"
+                  animate={{
+                    background: [
+                      'linear-gradient(45deg, rgba(168, 85, 247, 0.3), transparent, rgba(236, 72, 153, 0.3))',
+                      'linear-gradient(45deg, rgba(236, 72, 153, 0.3), transparent, rgba(6, 182, 212, 0.3))',
+                      'linear-gradient(45deg, rgba(6, 182, 212, 0.3), transparent, rgba(168, 85, 247, 0.3))'
+                    ]
+                  }}
+                  transition={{ duration: 8, repeat: Infinity }}
+                />
+                
                 {/* Fewer, slower particles */}
                 {[...Array(8)].map((_, i) => (
                   <motion.div
@@ -396,25 +423,19 @@ const About: React.FC = () => {
                   />
                 ))}
                 
-                <motion.div 
-                  className="text-8xl relative z-10"
-                  animate={{ 
-                    rotateY: [0, 5, -5, 0],
-                    scale: [1, 1.02, 1]
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                  animate={{
+                    x: ['-100%', '200%']
                   }}
-                  transition={{ 
-                    duration: 8, // Much slower
+                  transition={{
+                    duration: 4,
                     repeat: Infinity,
+                    repeatDelay: 3,
                     ease: "easeInOut"
                   }}
-                  whileHover={{
-                    scale: 1.05,
-                    rotateY: 10,
-                    transition: { duration: 0.5 }
-                  }}
-                >
-                  👩‍💼
-                </motion.div>
+                />
               </motion.div>
             </motion.div>
           </motion.div>

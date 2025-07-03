@@ -137,24 +137,155 @@ const Hero: React.FC = () => {
             </motion.div>
           </motion.div>
           
-          {/* Right Side - Character Illustration */}
+          {/* Right Side - Personal Image with Enhanced Effects */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 0.8 }}
             className="relative flex justify-center"
+            style={{ perspective: "1000px" }}
           >
             <div className="relative w-80 h-80 lg:w-96 lg:h-96">
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-pink-400/20 rounded-full blur-3xl animate-pulse" />
-              <div className="relative w-full h-full bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center">
-                <div className="w-64 h-64 lg:w-80 lg:h-80 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                  <div className="text-white text-8xl font-bold">👩‍💻</div>
-                </div>
-              </div>
+              {/* Animated background glow */}
+              <motion.div 
+                className="absolute inset-0 bg-gradient-to-r from-purple-400/30 to-pink-400/30 rounded-full blur-3xl"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  opacity: [0.3, 0.6, 0.3]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              {/* Orbiting rings */}
+              {[...Array(3)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className="absolute inset-0 rounded-full border-2 border-purple-400/20"
+                  style={{
+                    scale: 1 + i * 0.15,
+                  }}
+                  animate={{ rotate: 360 }}
+                  transition={{
+                    duration: 20 + i * 10,
+                    repeat: Infinity,
+                    ease: "linear"
+                  }}
+                />
+              ))}
+              
+              {/* Main image container */}
+              <motion.div 
+                className="relative w-full h-full rounded-full overflow-hidden border-4 border-white/10 shadow-2xl"
+                style={{ transformStyle: "preserve-3d" }}
+                animate={{
+                  boxShadow: [
+                    "0 0 30px rgba(168, 85, 247, 0.3)",
+                    "0 0 50px rgba(236, 72, 153, 0.4)",
+                    "0 0 30px rgba(168, 85, 247, 0.3)"
+                  ]
+                }}
+                transition={{ duration: 6, repeat: Infinity }}
+                whileHover={{
+                  scale: 1.05,
+                  rotateY: 10,
+                  transition: { duration: 0.5 }
+                }}
+              >
+                {/* Gradient overlay */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-pink-500/20 z-10"
+                  animate={{
+                    background: [
+                      'linear-gradient(45deg, rgba(168, 85, 247, 0.2), transparent, rgba(236, 72, 153, 0.2))',
+                      'linear-gradient(45deg, rgba(236, 72, 153, 0.2), transparent, rgba(6, 182, 212, 0.2))',
+                      'linear-gradient(45deg, rgba(6, 182, 212, 0.2), transparent, rgba(168, 85, 247, 0.2))'
+                    ]
+                  }}
+                  transition={{ duration: 8, repeat: Infinity }}
+                />
+                
+                {/* Personal image */}
+                <motion.img
+                  src="/untitled (1).jpeg"
+                  alt="Sarah Johnson"
+                  className="w-full h-full object-cover"
+                  initial={{ scale: 1.1, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 1, delay: 0.6 }}
+                  whileHover={{
+                    scale: 1.1,
+                    transition: { duration: 0.6 }
+                  }}
+                />
+                
+                {/* Floating particles */}
+                {[...Array(12)].map((_, i) => (
+                  <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-60"
+                    style={{
+                      left: `${Math.random() * 100}%`,
+                      top: `${Math.random() * 100}%`,
+                    }}
+                    animate={{
+                      y: [0, -80, 0],
+                      x: [0, Math.sin(i) * 40, 0],
+                      opacity: [0, 0.8, 0],
+                      scale: [0, 1.5, 0],
+                    }}
+                    transition={{
+                      duration: 6 + Math.random() * 4,
+                      repeat: Infinity,
+                      delay: Math.random() * 4,
+                      ease: "easeInOut"
+                    }}
+                  />
+                ))}
+                
+                {/* Shimmer effect */}
+                <motion.div
+                  className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12"
+                  animate={{
+                    x: ['-100%', '200%']
+                  }}
+                  transition={{
+                    duration: 3,
+                    repeat: Infinity,
+                    repeatDelay: 2,
+                    ease: "easeInOut"
+                  }}
+                />
+              </motion.div>
+              
+              {/* Decorative elements */}
               <motion.div
-                animate={{ rotate: 360 }}
-                transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                className="absolute inset-0 border-4 border-transparent border-t-cyan-400 border-r-yellow-400 rounded-full"
+                className="absolute -top-4 -right-4 w-8 h-8 bg-gradient-to-r from-cyan-400 to-blue-400 rounded-full"
+                animate={{
+                  scale: [1, 1.3, 1],
+                  rotate: [0, 180, 360]
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+              />
+              
+              <motion.div
+                className="absolute -bottom-4 -left-4 w-6 h-6 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"
+                animate={{
+                  scale: [1, 1.2, 1],
+                  rotate: [360, 180, 0]
+                }}
+                transition={{
+                  duration: 5,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
               />
             </div>
           </motion.div>
