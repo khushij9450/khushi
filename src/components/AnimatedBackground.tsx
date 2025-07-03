@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const AnimatedBackground: React.FC = () => {
-  // Generate stars with different sizes and positions
+  // Generate static twinkling stars
   const stars = Array.from({ length: 200 }, (_, i) => ({
     id: i,
     size: Math.random() * 3 + 1,
@@ -11,6 +11,32 @@ const AnimatedBackground: React.FC = () => {
     duration: Math.random() * 4 + 2,
     delay: Math.random() * 5,
     opacity: Math.random() * 0.8 + 0.2,
+  }));
+
+  // Generate moving stars that travel across the screen
+  const movingStars = Array.from({ length: 50 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 2 + 1,
+    startX: -10,
+    startY: Math.random() * 100,
+    endX: 110,
+    endY: Math.random() * 100,
+    duration: Math.random() * 15 + 10, // 10-25 seconds to cross screen
+    delay: Math.random() * 20, // Stagger the start times
+    opacity: Math.random() * 0.6 + 0.4,
+  }));
+
+  // Generate faster moving stars for depth
+  const fastMovingStars = Array.from({ length: 30 }, (_, i) => ({
+    id: i,
+    size: Math.random() * 1.5 + 0.5,
+    startX: -5,
+    startY: Math.random() * 100,
+    endX: 105,
+    endY: Math.random() * 100,
+    duration: Math.random() * 8 + 5, // 5-13 seconds (faster)
+    delay: Math.random() * 15,
+    opacity: Math.random() * 0.4 + 0.3,
   }));
 
   // Generate shooting stars
@@ -34,7 +60,7 @@ const AnimatedBackground: React.FC = () => {
   }));
 
   // Generate nebula clouds
-  const nebulaClouds = Array.from({ length: 4 }, (_, i) => ({
+  const nebulaClouds = Array.from({ length, 4 }, (_, i) => ({
     id: i,
     size: Math.random() * 300 + 200,
     x: Math.random() * 100,
@@ -91,7 +117,7 @@ const AnimatedBackground: React.FC = () => {
         />
       </div>
 
-      {/* Twinkling stars field */}
+      {/* Static twinkling stars field */}
       {stars.map((star) => (
         <motion.div
           key={star.id}
@@ -111,6 +137,60 @@ const AnimatedBackground: React.FC = () => {
             repeat: Infinity,
             delay: star.delay,
             ease: 'easeInOut',
+          }}
+        />
+      ))}
+
+      {/* Moving stars - slow and majestic */}
+      {movingStars.map((star) => (
+        <motion.div
+          key={`moving-${star.id}`}
+          className="absolute rounded-full bg-white shadow-lg"
+          style={{
+            width: star.size,
+            height: star.size,
+            opacity: star.opacity,
+          }}
+          initial={{
+            x: `${star.startX}vw`,
+            y: `${star.startY}vh`,
+          }}
+          animate={{
+            x: `${star.endX}vw`,
+            y: `${star.endY}vh`,
+          }}
+          transition={{
+            duration: star.duration,
+            repeat: Infinity,
+            delay: star.delay,
+            ease: 'linear',
+          }}
+        />
+      ))}
+
+      {/* Fast moving stars for depth effect */}
+      {fastMovingStars.map((star) => (
+        <motion.div
+          key={`fast-${star.id}`}
+          className="absolute rounded-full bg-blue-200 shadow-sm"
+          style={{
+            width: star.size,
+            height: star.size,
+            opacity: star.opacity,
+          }}
+          initial={{
+            x: `${star.startX}vw`,
+            y: `${star.startY}vh`,
+          }}
+          animate={{
+            x: `${star.endX}vw`,
+            y: `${star.endY}vh`,
+          }}
+          transition={{
+            duration: star.duration,
+            repeat: Infinity,
+            delay: star.delay,
+            ease: 'linear',
           }}
         />
       ))}
@@ -386,7 +466,7 @@ const AnimatedBackground: React.FC = () => {
       {/* Final depth overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a]/90 via-transparent to-[#0a0a0a]/60" />
       
-      {/* Cosmic dust particles */}
+      {/* Cosmic dust particles moving upward */}
       {Array.from({ length: 30 }).map((_, i) => (
         <motion.div
           key={i}
@@ -403,6 +483,30 @@ const AnimatedBackground: React.FC = () => {
             duration: Math.random() * 10 + 15,
             repeat: Infinity,
             delay: Math.random() * 10,
+            ease: 'linear',
+          }}
+        />
+      ))}
+
+      {/* Additional moving star streams */}
+      {Array.from({ length: 20 }).map((_, i) => (
+        <motion.div
+          key={`stream-${i}`}
+          className="absolute w-0.5 h-0.5 bg-cyan-300 rounded-full shadow-sm"
+          initial={{
+            x: -20,
+            y: `${Math.random() * 100}vh`,
+            opacity: 0,
+          }}
+          animate={{
+            x: `${window.innerWidth + 20}px`,
+            y: `${Math.random() * 100}vh`,
+            opacity: [0, 0.8, 0],
+          }}
+          transition={{
+            duration: Math.random() * 20 + 15,
+            repeat: Infinity,
+            delay: Math.random() * 25,
             ease: 'linear',
           }}
         />
