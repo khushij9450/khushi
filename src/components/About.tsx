@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Code, Palette, Database, Smartphone, Globe, Zap } from 'lucide-react';
 
 const About: React.FC = () => {
   const [currentSkill, setCurrentSkill] = useState(0);
@@ -32,59 +33,13 @@ const About: React.FC = () => {
     return () => clearInterval(skillInterval);
   }, []);
 
-  const experiences = [
-    {
-      title: "Software Engineer",
-      company_name: "Google",
-      icon: "🌐",
-      iconBg: "#383E56",
-      date: "March 2022 - Present",
-      points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
-      ],
-    },
-    {
-      title: "React Native Developer",
-      company_name: "Tesla",
-      icon: "🚗",
-      iconBg: "#E6DEDD",
-      date: "Jan 2021 - Feb 2022",
-      points: [
-        "Developed and maintained mobile applications using React Native.",
-        "Worked closely with product managers to implement new features.",
-        "Collaborated with designers to create intuitive user interfaces.",
-        "Optimized applications for maximum speed and scalability.",
-      ],
-    },
-    {
-      title: "Web Developer",
-      company_name: "Shopify",
-      icon: "🛍️",
-      iconBg: "#383E56",
-      date: "Jan 2020 - Jan 2021",
-      points: [
-        "Built and maintained e-commerce websites using modern web technologies.",
-        "Implemented payment gateways and shopping cart functionality.",
-        "Optimized websites for search engines and performance.",
-        "Collaborated with the design team to create pixel-perfect implementations.",
-      ],
-    },
-    {
-      title: "Full Stack Developer",
-      company_name: "Meta",
-      icon: "📘",
-      iconBg: "#E6DEDD",
-      date: "Jan 2019 - Jan 2020",
-      points: [
-        "Developed full-stack web applications using React, Node.js, and MongoDB.",
-        "Designed and implemented RESTful APIs and database schemas.",
-        "Worked with version control systems like Git for collaborative development.",
-        "Participated in agile development processes and daily standups.",
-      ],
-    },
+  const skills = [
+    { name: 'Frontend Development', icon: Code, description: 'React, TypeScript, Next.js, Tailwind CSS' },
+    { name: 'Backend Development', icon: Database, description: 'Node.js, Python, PostgreSQL, MongoDB' },
+    { name: 'UI/UX Design', icon: Palette, description: 'Figma, Adobe XD, Sketch, Prototyping' },
+    { name: 'Mobile Development', icon: Smartphone, description: 'React Native, Flutter, Progressive Web Apps' },
+    { name: 'Web Technologies', icon: Globe, description: 'HTML5, CSS3, JavaScript, TypeScript' },
+    { name: 'Performance Optimization', icon: Zap, description: 'Webpack, Vite, SEO, Web Vitals' },
   ];
 
   return (
@@ -200,124 +155,37 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Work Experience Section - Adrian Hajdin Style */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut" }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-20"
+          className="text-center mb-12"
         >
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-gray-400 text-lg mb-4 tracking-wider uppercase"
-          >
-            What I have done so far
-          </motion.p>
-          <motion.h3
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.8 }}
-            viewport={{ once: true }}
-            className="text-4xl lg:text-5xl font-bold text-white mb-6"
-          >
-            Work{' '}
-            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent">
-              Experience.
-            </span>
-          </motion.h3>
+          <h3 className="text-3xl font-bold text-white mb-6">What I Do</h3>
+          <p className="text-gray-300 text-lg max-w-2xl mx-auto">
+            I specialize in a wide range of technologies and services to bring your ideas to life.
+          </p>
         </motion.div>
 
-        <div className="max-w-7xl mx-auto">
-          <div className="mt-20 flex flex-col">
-            {experiences.map((experience, index) => (
-              <motion.div
-                key={`experience-${index}`}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1, duration: 0.8 }}
-                viewport={{ once: true }}
-                className="relative"
-              >
-                <div className="flex justify-between items-center w-full">
-                  <div className="flex-1">
-                    <motion.div
-                      whileHover={{ scale: 1.02 }}
-                      className="bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 border border-purple-500/30 hover:border-purple-400/60 transition-all duration-500 relative overflow-hidden group"
-                    >
-                      {/* Animated background gradient */}
-                      <motion.div
-                        className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        animate={{
-                          background: [
-                            'linear-gradient(45deg, rgba(168, 85, 247, 0.05) 0%, rgba(236, 72, 153, 0.05) 50%, rgba(6, 182, 212, 0.05) 100%)',
-                            'linear-gradient(45deg, rgba(6, 182, 212, 0.05) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(236, 72, 153, 0.05) 100%)',
-                            'linear-gradient(45deg, rgba(236, 72, 153, 0.05) 0%, rgba(6, 182, 212, 0.05) 50%, rgba(168, 85, 247, 0.05) 100%)'
-                          ]
-                        }}
-                        transition={{
-                          duration: 3,
-                          repeat: Infinity,
-                          ease: "linear"
-                        }}
-                      />
-                      
-                      <div className="relative z-10">
-                        <div className="flex items-center gap-5">
-                          <motion.div
-                            whileHover={{ rotate: 360, scale: 1.1 }}
-                            transition={{ duration: 0.6 }}
-                            className="w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg"
-                            style={{ backgroundColor: experience.iconBg }}
-                          >
-                            {experience.icon}
-                          </motion.div>
-                          
-                          <div className="flex-1">
-                            <h3 className="text-white text-[24px] font-bold">
-                              {experience.title}
-                            </h3>
-                            <p className="text-purple-400 text-[16px] font-semibold">
-                              {experience.company_name}
-                            </p>
-                          </div>
-                        </div>
-
-                        <ul className="mt-5 list-disc ml-5 space-y-2">
-                          {experience.points.map((point, index) => (
-                            <motion.li
-                              key={`experience-point-${index}`}
-                              initial={{ opacity: 0, x: -20 }}
-                              whileInView={{ opacity: 1, x: 0 }}
-                              transition={{ delay: index * 0.1, duration: 0.5 }}
-                              viewport={{ once: true }}
-                              className="text-white-100 text-[14px] pl-1 tracking-wider text-gray-300"
-                            >
-                              {point}
-                            </motion.li>
-                          ))}
-                        </ul>
-                      </div>
-                    </motion.div>
-                  </div>
-                </div>
-                
-                {/* Date badge */}
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 + 0.3, duration: 0.6 }}
-                  viewport={{ once: true }}
-                  className="absolute -top-3 right-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg"
-                >
-                  {experience.date}
-                </motion.div>
-              </motion.div>
-            ))}
-          </div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {skills.map((skill, index) => (
+            <motion.div
+              key={skill.name}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.1, duration: 0.8 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.05 }}
+              className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300"
+            >
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center mb-4">
+                <skill.icon className="text-white" size={28} />
+              </div>
+              <h4 className="text-xl font-semibold text-white mb-3">{skill.name}</h4>
+              <p className="text-gray-400">{skill.description}</p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>
