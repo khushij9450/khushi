@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, MapPin } from 'lucide-react';
 
 const About: React.FC = () => {
   const [currentSkill, setCurrentSkill] = useState(0);
@@ -35,11 +34,11 @@ const About: React.FC = () => {
 
   const experiences = [
     {
-      title: "React.js Developer",
-      company_name: "Starbucks",
-      icon: "☕",
+      title: "Software Engineer",
+      company_name: "Google",
+      icon: "🌐",
       iconBg: "#383E56",
-      date: "March 2020 - April 2021",
+      date: "March 2022 - Present",
       points: [
         "Developing and maintaining web applications using React.js and other related technologies.",
         "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
@@ -54,10 +53,10 @@ const About: React.FC = () => {
       iconBg: "#E6DEDD",
       date: "Jan 2021 - Feb 2022",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Developed and maintained mobile applications using React Native.",
+        "Worked closely with product managers to implement new features.",
+        "Collaborated with designers to create intuitive user interfaces.",
+        "Optimized applications for maximum speed and scalability.",
       ],
     },
     {
@@ -65,25 +64,25 @@ const About: React.FC = () => {
       company_name: "Shopify",
       icon: "🛍️",
       iconBg: "#383E56",
-      date: "Jan 2022 - Jan 2023",
+      date: "Jan 2020 - Jan 2021",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Built and maintained e-commerce websites using modern web technologies.",
+        "Implemented payment gateways and shopping cart functionality.",
+        "Optimized websites for search engines and performance.",
+        "Collaborated with the design team to create pixel-perfect implementations.",
       ],
     },
     {
-      title: "Full stack Developer",
+      title: "Full Stack Developer",
       company_name: "Meta",
       icon: "📘",
       iconBg: "#E6DEDD",
-      date: "Jan 2023 - Present",
+      date: "Jan 2019 - Jan 2020",
       points: [
-        "Developing and maintaining web applications using React.js and other related technologies.",
-        "Collaborating with cross-functional teams including designers, product managers, and other developers to create high-quality products.",
-        "Implementing responsive design and ensuring cross-browser compatibility.",
-        "Participating in code reviews and providing constructive feedback to other developers.",
+        "Developed full-stack web applications using React, Node.js, and MongoDB.",
+        "Designed and implemented RESTful APIs and database schemas.",
+        "Worked with version control systems like Git for collaborative development.",
+        "Participated in agile development processes and daily standups.",
       ],
     },
   ];
@@ -201,7 +200,7 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* Work Experience Section */}
+        {/* Work Experience Section - Adrian Hajdin Style */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -232,170 +231,91 @@ const About: React.FC = () => {
           </motion.h3>
         </motion.div>
 
-        <div className="max-w-5xl mx-auto">
-          <div className="relative">
-            {/* Timeline line */}
-            <motion.div
-              initial={{ scaleY: 0 }}
-              whileInView={{ scaleY: 1 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              viewport={{ once: true }}
-              className="absolute left-8 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-400 via-pink-400 to-cyan-400 hidden md:block origin-top"
-              style={{
-                background: 'linear-gradient(180deg, #a855f7 0%, #ec4899 50%, #06b6d4 100%)',
-                boxShadow: '0 0 20px rgba(168, 85, 247, 0.5)'
-              }}
-            />
-            
+        <div className="max-w-7xl mx-auto">
+          <div className="mt-20 flex flex-col">
             {experiences.map((experience, index) => (
-              <div key={`experience-${index}`} className="relative mb-16 md:ml-24">
-                {/* Timeline dot */}
-                <motion.div
-                  initial={{ scale: 0, opacity: 0 }}
-                  whileInView={{ scale: 1, opacity: 1 }}
-                  transition={{ delay: index * 0.3 + 0.2, duration: 0.6, ease: "easeOut", type: "spring", stiffness: 200 }}
-                  viewport={{ once: true }}
-                  className="absolute -left-24 top-8 hidden md:flex"
-                >
-                  <motion.div
-                    whileHover={{ 
-                      scale: 1.2,
-                      rotate: 360,
-                      transition: { duration: 0.6 }
-                    }}
-                    className="relative"
-                  >
-                    <div 
-                      className="w-20 h-20 rounded-full flex items-center justify-center text-3xl shadow-2xl border-4 border-white/20 backdrop-blur-sm relative z-10"
-                      style={{ backgroundColor: experience.iconBg }}
+              <motion.div
+                key={`experience-${index}`}
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1, duration: 0.8 }}
+                viewport={{ once: true }}
+                className="relative"
+              >
+                <div className="flex justify-between items-center w-full">
+                  <div className="flex-1">
+                    <motion.div
+                      whileHover={{ scale: 1.02 }}
+                      className="bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 border border-purple-500/30 hover:border-purple-400/60 transition-all duration-500 relative overflow-hidden group"
                     >
-                      {experience.icon}
-                    </div>
-                    {/* Glowing ring effect */}
-                    <motion.div
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 0.8, 0.5]
-                      }}
-                      transition={{
-                        duration: 2,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                      }}
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-purple-400 to-pink-400 opacity-30 blur-md"
-                    />
-                  </motion.div>
-                </motion.div>
-
-                {/* Experience card */}
-                <motion.div
-                  initial={{ opacity: 0, x: -100, scale: 0.8 }}
-                  whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                  transition={{ delay: index * 0.3, duration: 0.8, ease: "easeOut", type: "spring", stiffness: 100 }}
-                  viewport={{ once: true }}
-                  whileHover={{ 
-                    scale: 1.02,
-                    y: -5,
-                    transition: { duration: 0.3 }
-                  }}
-                  className="relative group"
-                >
-                  <div className="bg-slate-800/60 backdrop-blur-xl rounded-3xl p-8 border border-purple-500/30 hover:border-purple-400/60 transition-all duration-500 relative overflow-hidden">
-                    {/* Animated background gradient */}
-                    <motion.div
-                      className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                      animate={{
-                        background: [
-                          'linear-gradient(45deg, rgba(168, 85, 247, 0.05) 0%, rgba(236, 72, 153, 0.05) 50%, rgba(6, 182, 212, 0.05) 100%)',
-                          'linear-gradient(45deg, rgba(6, 182, 212, 0.05) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(236, 72, 153, 0.05) 100%)',
-                          'linear-gradient(45deg, rgba(236, 72, 153, 0.05) 0%, rgba(6, 182, 212, 0.05) 50%, rgba(168, 85, 247, 0.05) 100%)'
-                        ]
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Infinity,
-                        ease: "linear"
-                      }}
-                    />
-                    
-                    <div className="relative z-10">
-                      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
-                        <div className="flex items-center space-x-4 mb-4 lg:mb-0">
-                          <motion.div 
-                            whileHover={{ rotate: 360 }}
+                      {/* Animated background gradient */}
+                      <motion.div
+                        className="absolute inset-0 bg-gradient-to-r from-purple-500/5 via-pink-500/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                        animate={{
+                          background: [
+                            'linear-gradient(45deg, rgba(168, 85, 247, 0.05) 0%, rgba(236, 72, 153, 0.05) 50%, rgba(6, 182, 212, 0.05) 100%)',
+                            'linear-gradient(45deg, rgba(6, 182, 212, 0.05) 0%, rgba(168, 85, 247, 0.05) 50%, rgba(236, 72, 153, 0.05) 100%)',
+                            'linear-gradient(45deg, rgba(236, 72, 153, 0.05) 0%, rgba(6, 182, 212, 0.05) 50%, rgba(168, 85, 247, 0.05) 100%)'
+                          ]
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Infinity,
+                          ease: "linear"
+                        }}
+                      />
+                      
+                      <div className="relative z-10">
+                        <div className="flex items-center gap-5">
+                          <motion.div
+                            whileHover={{ rotate: 360, scale: 1.1 }}
                             transition={{ duration: 0.6 }}
-                            className="w-16 h-16 rounded-full flex items-center justify-center text-2xl lg:hidden shadow-lg"
+                            className="w-16 h-16 rounded-full flex items-center justify-center text-2xl shadow-lg"
                             style={{ backgroundColor: experience.iconBg }}
                           >
                             {experience.icon}
                           </motion.div>
-                          <div>
-                            <motion.h4
-                              initial={{ opacity: 0, y: 10 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              transition={{ delay: index * 0.3 + 0.3, duration: 0.6 }}
-                              viewport={{ once: true }}
-                              className="text-2xl font-bold text-white mb-1"
-                            >
+                          
+                          <div className="flex-1">
+                            <h3 className="text-white text-[24px] font-bold">
                               {experience.title}
-                            </motion.h4>
-                            <motion.p
-                              initial={{ opacity: 0, y: 10 }}
-                              whileInView={{ opacity: 1, y: 0 }}
-                              transition={{ delay: index * 0.3 + 0.4, duration: 0.6 }}
-                              viewport={{ once: true }}
-                              className="text-lg font-semibold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent"
-                            >
+                            </h3>
+                            <p className="text-purple-400 text-[16px] font-semibold">
                               {experience.company_name}
-                            </motion.p>
+                            </p>
                           </div>
                         </div>
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: index * 0.3 + 0.5, duration: 0.6 }}
-                          viewport={{ once: true }}
-                          className="flex items-center space-x-2 text-gray-400 bg-slate-700/50 px-4 py-2 rounded-full"
-                        >
-                          <Calendar size={16} />
-                          <span className="text-sm font-medium">{experience.date}</span>
-                        </motion.div>
-                      </div>
 
-                      <motion.ul 
-                        className="space-y-4"
-                        initial="hidden"
-                        whileInView="visible"
-                        viewport={{ once: true }}
-                      >
-                        {experience.points.map((point, pointIndex) => (
-                          <motion.li
-                            key={pointIndex}
-                            initial={{ opacity: 0, x: -20, scale: 0.9 }}
-                            whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                            transition={{ delay: pointIndex * 0.1, duration: 0.5, ease: "easeOut" }}
-                            viewport={{ once: true }}
-                            className="flex items-start space-x-4 text-gray-300 group/item"
-                          >
-                            <motion.div
-                              whileHover={{ scale: 1.5, rotate: 180 }}
-                              transition={{ duration: 0.3 }}
-                              className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full mt-2 flex-shrink-0 shadow-lg"
-                            />
-                            <motion.span
-                              whileHover={{ x: 5 }}
-                              transition={{ duration: 0.2 }}
-                              className="leading-relaxed text-base group-hover/item:text-white transition-colors duration-300"
+                        <ul className="mt-5 list-disc ml-5 space-y-2">
+                          {experience.points.map((point, index) => (
+                            <motion.li
+                              key={`experience-point-${index}`}
+                              initial={{ opacity: 0, x: -20 }}
+                              whileInView={{ opacity: 1, x: 0 }}
+                              transition={{ delay: index * 0.1, duration: 0.5 }}
+                              viewport={{ once: true }}
+                              className="text-white-100 text-[14px] pl-1 tracking-wider text-gray-300"
                             >
                               {point}
-                            </motion.span>
-                          </motion.li>
-                        ))}
-                      </motion.ul>
-                    </div>
+                            </motion.li>
+                          ))}
+                        </ul>
+                      </div>
+                    </motion.div>
                   </div>
+                </div>
+                
+                {/* Date badge */}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 + 0.3, duration: 0.6 }}
+                  viewport={{ once: true }}
+                  className="absolute -top-3 right-8 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg"
+                >
+                  {experience.date}
                 </motion.div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
