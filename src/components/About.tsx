@@ -446,7 +446,7 @@ const About: React.FC = () => {
               transition={{ type: "spring", stiffness: 300 }}
             >
               <Terminal className="text-cyan-400" size={32} />
-              <span>{'>'} Journey.execute()</span>
+              <span>&gt; Journey.execute()</span>
             </motion.h3>
             
             <motion.div className="space-y-8">
@@ -533,7 +533,7 @@ const About: React.FC = () => {
               <div className="relative z-10">
                 <h4 className="text-xl font-semibold text-white mb-6 relative z-10 font-mono flex items-center space-x-3">
                   <Activity className="text-cyan-400" size={24} />
-                  <span>{'>'} Currently_Researching:</span>
+                  <span>&gt; Currently_Researching:</span>
                 </h4>
                 <div className="flex items-center h-12 relative z-10">
                   <motion.span
