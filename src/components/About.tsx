@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, useScroll, useTransform, useSpring, useInView, useMotionValue, useVelocity } from 'framer-motion';
-import { Code, Palette, Database, Smartphone, Globe, Zap, Star, Sparkles, Heart, Coffee, Rocket, Target, CheckCircle, ArrowRight } from 'lucide-react';
+import { Code, Palette, Database, Smartphone, Globe, Zap, Star, Sparkles, Heart, Coffee, Rocket, Target, CheckCircle, ArrowRight, Settings, Users, Briefcase } from 'lucide-react';
 
 const About: React.FC = () => {
   const [currentSkill, setCurrentSkill] = useState(0);
@@ -102,41 +102,46 @@ const About: React.FC = () => {
     { icon: Target, delay: 10, duration: 14 }
   ];
 
-  // How Can I Contribute data
-  const contributions = [
+  // Skills data matching the reference design
+  const skillCategories = [
     {
-      title: "Frontend Development",
-      description: "Building responsive, interactive user interfaces with modern frameworks and libraries.",
-      points: [
-        "React.js & Next.js applications",
-        "TypeScript for type-safe development",
-        "Responsive design with Tailwind CSS",
-        "State management with Redux/Zustand"
-      ]
+      title: "React Developer",
+      icon: "⚛️",
+      description: "Building modern, responsive web applications with React.js and its ecosystem",
+      bgColor: "from-blue-500/20 to-cyan-500/20",
+      borderColor: "border-blue-500/30"
     },
     {
-      title: "Backend Development",
-      description: "Creating robust server-side applications and APIs for scalable web solutions.",
-      points: [
-        "RESTful API development",
-        "Database design and optimization",
-        "Authentication & authorization",
-        "Microservices architecture"
-      ]
+      title: "Python Developer", 
+      icon: "🐍",
+      description: "Backend development, data analysis, and automation using Python",
+      bgColor: "from-yellow-500/20 to-green-500/20",
+      borderColor: "border-yellow-500/30"
     },
     {
-      title: "Full-Stack Solutions",
-      description: "End-to-end development from concept to deployment with modern tech stacks.",
-      points: [
-        "MERN/MEAN stack development",
-        "Cloud deployment (AWS, Vercel)",
-        "CI/CD pipeline setup",
-        "Performance optimization"
-      ]
+      title: "Backend Developer",
+      icon: "⚙️", 
+      description: "Server-side development with Node.js, databases, and API design",
+      bgColor: "from-green-500/20 to-emerald-500/20",
+      borderColor: "border-green-500/30"
+    },
+    {
+      title: "Interactive Developer",
+      icon: "✨",
+      description: "Creating engaging user experiences with animations and interactions",
+      bgColor: "from-purple-500/20 to-pink-500/20", 
+      borderColor: "border-purple-500/30"
+    },
+    {
+      title: "Project Manager",
+      icon: "📋",
+      description: "Leading development teams and managing project lifecycles",
+      bgColor: "from-red-500/20 to-orange-500/20",
+      borderColor: "border-red-500/30"
     }
   ];
 
-  // Key Skills data
+  // Key Skills data with progress bars
   const keySkills = [
     { name: "JavaScript", level: 95 },
     { name: "TypeScript", level: 90 },
@@ -513,7 +518,7 @@ const About: React.FC = () => {
           </motion.div>
         </div>
 
-        {/* How Can I Contribute Section */}
+        {/* What I Bring to the Table Section */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -521,97 +526,137 @@ const About: React.FC = () => {
           viewport={{ once: true }}
           className="mb-20"
         >
-          <motion.div className="text-center mb-12">
+          <motion.div className="text-center mb-16">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center space-x-2 bg-gradient-to-r from-purple-500/20 to-pink-500/20 backdrop-blur-lg rounded-full px-6 py-3 border border-purple-500/30 mb-6"
+            >
+              <span className="text-2xl">🏆</span>
+              <span className="text-purple-300 font-medium">What I Bring to the Table</span>
+            </motion.div>
+            
             <motion.h3 
-              className="text-3xl font-bold text-white mb-6"
+              className="text-4xl lg:text-5xl font-bold text-white mb-6"
               whileHover={{ scale: 1.02 }}
             >
-              How Can I{' '}
+              How I Can{' '}
               <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Contribute
+              </span>{' '}
+              & My Key{' '}
+              <span className="bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                Skills
               </span>
             </motion.h3>
-            <motion.p 
-              className="text-gray-300 text-lg max-w-2xl mx-auto"
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              I bring a comprehensive skill set to help your projects succeed from conception to deployment.
-            </motion.p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {contributions.map((contribution, index) => (
+          {/* Circular Skills Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mb-16 max-w-6xl mx-auto">
+            {skillCategories.map((skill, index) => (
               <motion.div
-                key={contribution.title}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                key={skill.title}
+                initial={{ opacity: 0, y: 50, scale: 0.8 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
                 transition={{ 
-                  delay: index * 0.2, 
+                  delay: index * 0.1, 
                   duration: 0.8,
                   type: "spring",
                   stiffness: 100
                 }}
                 viewport={{ once: true }}
-                className="group relative bg-slate-800/50 backdrop-blur-lg rounded-2xl p-6 border border-purple-500/20 hover:border-purple-500/40 transition-all duration-300 overflow-hidden"
-                whileHover={{ scale: 1.02, y: -5 }}
+                className="group relative flex flex-col items-center"
+                whileHover={{ scale: 1.05, y: -10 }}
               >
-                {/* Animated background gradient */}
+                {/* Circular Background */}
                 <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  animate={{
-                    background: [
-                      `linear-gradient(45deg, rgba(168, 85, 247, 0.03), rgba(236, 72, 153, 0.03))`,
-                      `linear-gradient(45deg, rgba(236, 72, 153, 0.03), rgba(6, 182, 212, 0.03))`,
-                      `linear-gradient(45deg, rgba(6, 182, 212, 0.03), rgba(168, 85, 247, 0.03))`
-                    ]
+                  className={`relative w-32 h-32 lg:w-40 lg:h-40 rounded-full bg-gradient-to-br ${skill.bgColor} backdrop-blur-lg border-2 ${skill.borderColor} flex items-center justify-center mb-4 overflow-hidden`}
+                  whileHover={{ 
+                    boxShadow: "0 20px 40px rgba(168, 85, 247, 0.3)",
+                    borderColor: "rgba(168, 85, 247, 0.6)"
                   }}
-                  transition={{ duration: 6, repeat: Infinity }}
-                />
-
-                <div className="relative z-10">
-                  <motion.h4 
-                    className="text-xl font-semibold text-white mb-3"
-                    whileHover={{ scale: 1.02 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {contribution.title}
-                  </motion.h4>
+                  transition={{ duration: 0.3 }}
+                >
+                  {/* Animated background gradient */}
+                  <motion.div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                    animate={{
+                      background: [
+                        `linear-gradient(45deg, rgba(168, 85, 247, 0.1), rgba(236, 72, 153, 0.1))`,
+                        `linear-gradient(45deg, rgba(236, 72, 153, 0.1), rgba(6, 182, 212, 0.1))`,
+                        `linear-gradient(45deg, rgba(6, 182, 212, 0.1), rgba(168, 85, 247, 0.1))`
+                      ]
+                    }}
+                    transition={{ duration: 3, repeat: Infinity }}
+                  />
                   
-                  <motion.p 
-                    className="text-gray-400 mb-4"
-                    whileHover={{ color: "#e5e7eb" }}
-                    transition={{ duration: 0.2 }}
+                  {/* Icon */}
+                  <motion.div 
+                    className="text-4xl lg:text-5xl relative z-10"
+                    whileHover={{ 
+                      rotate: 360,
+                      scale: 1.1
+                    }}
+                    transition={{ duration: 0.6 }}
                   >
-                    {contribution.description}
-                  </motion.p>
+                    {skill.icon}
+                  </motion.div>
 
-                  <ul className="space-y-2">
-                    {contribution.points.map((point, pointIndex) => (
-                      <motion.li
-                        key={pointIndex}
-                        initial={{ opacity: 0, x: -10 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        transition={{ delay: index * 0.2 + pointIndex * 0.1 + 0.5, duration: 0.5 }}
-                        viewport={{ once: true }}
-                        className="flex items-center space-x-2 text-gray-300 group/item"
-                      >
-                        <CheckCircle className="w-4 h-4 text-green-400 flex-shrink-0" />
-                        <span className="text-sm group-hover/item:text-white transition-colors duration-300">
-                          {point}
-                        </span>
-                      </motion.li>
-                    ))}
-                  </ul>
-                </div>
+                  {/* Floating particles */}
+                  {[...Array(6)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      className="absolute w-1 h-1 bg-white/40 rounded-full"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                      }}
+                      animate={{
+                        y: [0, -20, 0],
+                        x: [0, Math.sin(i) * 10, 0],
+                        opacity: [0, 0.6, 0],
+                        scale: [0, 1, 0],
+                      }}
+                      transition={{
+                        duration: 3 + Math.random() * 2,
+                        repeat: Infinity,
+                        delay: Math.random() * 2,
+                        ease: "easeInOut"
+                      }}
+                    />
+                  ))}
+                </motion.div>
+
+                {/* Title */}
+                <motion.h4 
+                  className="text-lg lg:text-xl font-semibold text-white text-center mb-2"
+                  whileHover={{ 
+                    scale: 1.05,
+                    color: "#a855f7"
+                  }}
+                  transition={{ duration: 0.2 }}
+                >
+                  {skill.title}
+                </motion.h4>
+                
+                {/* Description */}
+                <motion.p 
+                  className="text-gray-400 text-sm text-center max-w-xs opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  initial={{ y: 10 }}
+                  whileInView={{ y: 0 }}
+                  transition={{ delay: index * 0.1 + 0.5, duration: 0.5 }}
+                  viewport={{ once: true }}
+                >
+                  {skill.description}
+                </motion.p>
               </motion.div>
             ))}
           </div>
         </motion.div>
 
-        {/* Key Skills Section */}
+        {/* Key Skills Progress Bars */}
         <motion.div
           initial={{ opacity: 0, y: 50 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -623,9 +668,9 @@ const About: React.FC = () => {
             className="text-3xl font-bold text-white mb-6"
             whileHover={{ scale: 1.02 }}
           >
-            Key{' '}
+            Technical{' '}
             <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
-              Skills
+              Proficiency
             </span>
           </motion.h3>
           <motion.p 
@@ -635,7 +680,7 @@ const About: React.FC = () => {
             transition={{ delay: 0.3, duration: 0.8 }}
             viewport={{ once: true }}
           >
-            Technical expertise across modern web development technologies and tools.
+            My expertise across modern web development technologies and tools.
           </motion.p>
         </motion.div>
 
