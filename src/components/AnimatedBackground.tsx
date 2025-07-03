@@ -2,12 +2,12 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 const AnimatedBackground: React.FC = () => {
-  // Generate random particles - positioned away from top-left corner
+  // Generate random particles - positioned away from all corners
   const particles = Array.from({ length: 50 }, (_, i) => ({
     id: i,
     size: Math.random() * 4 + 1,
-    x: Math.random() * 80 + 10, // Start from 10% to avoid top-left
-    y: Math.random() * 80 + 10, // Start from 10% to avoid top-left
+    x: Math.random() * 60 + 20, // Start from 20% to 80% to avoid all corners
+    y: Math.random() * 60 + 20, // Start from 20% to 80% to avoid all corners
     duration: Math.random() * 20 + 10,
     delay: Math.random() * 5,
   }));
@@ -15,8 +15,8 @@ const AnimatedBackground: React.FC = () => {
   const floatingShapes = Array.from({ length: 15 }, (_, i) => ({
     id: i,
     size: Math.random() * 60 + 20,
-    x: Math.random() * 70 + 15, // Start from 15% to avoid corners
-    y: Math.random() * 70 + 15, // Start from 15% to avoid corners
+    x: Math.random() * 50 + 25, // Start from 25% to 75% to avoid all corners
+    y: Math.random() * 50 + 25, // Start from 25% to 75% to avoid all corners
     duration: Math.random() * 30 + 20,
     delay: Math.random() * 10,
     shape: ['circle', 'square', 'triangle'][Math.floor(Math.random() * 3)],
@@ -41,9 +41,9 @@ const AnimatedBackground: React.FC = () => {
           className="absolute inset-0 opacity-10"
           style={{
             background: `
-              radial-gradient(circle at 20% 50%, #3b82f6 0%, transparent 50%),
-              radial-gradient(circle at 80% 20%, #8b5cf6 0%, transparent 50%),
-              radial-gradient(circle at 40% 80%, #06b6d4 0%, transparent 50%)
+              radial-gradient(circle at 30% 60%, #3b82f6 0%, transparent 50%),
+              radial-gradient(circle at 70% 30%, #8b5cf6 0%, transparent 50%),
+              radial-gradient(circle at 50% 80%, #06b6d4 0%, transparent 50%)
             `,
             backgroundSize: '400% 400%',
           }}
@@ -61,9 +61,9 @@ const AnimatedBackground: React.FC = () => {
           className="absolute inset-0 opacity-5"
           style={{
             background: `
-              radial-gradient(circle at 60% 30%, #ec4899 0%, transparent 50%),
-              radial-gradient(circle at 30% 70%, #10b981 0%, transparent 50%),
-              radial-gradient(circle at 70% 60%, #f59e0b 0%, transparent 50%)
+              radial-gradient(circle at 60% 40%, #ec4899 0%, transparent 50%),
+              radial-gradient(circle at 40% 70%, #10b981 0%, transparent 50%),
+              radial-gradient(circle at 80% 60%, #f59e0b 0%, transparent 50%)
             `,
             backgroundSize: '300% 300%',
           }}
@@ -136,11 +136,11 @@ const AnimatedBackground: React.FC = () => {
       <motion.div
         animate={{
           background: [
-            'radial-gradient(circle at 0% 0%, #3b82f610 0%, transparent 50%)',
-            'radial-gradient(circle at 100% 100%, #8b5cf610 0%, transparent 50%)',
-            'radial-gradient(circle at 0% 100%, #06b6d410 0%, transparent 50%)',
-            'radial-gradient(circle at 100% 0%, #ec489910 0%, transparent 50%)',
-            'radial-gradient(circle at 0% 0%, #3b82f610 0%, transparent 50%)',
+            'radial-gradient(circle at 30% 30%, #3b82f610 0%, transparent 50%)',
+            'radial-gradient(circle at 70% 70%, #8b5cf610 0%, transparent 50%)',
+            'radial-gradient(circle at 30% 70%, #06b6d410 0%, transparent 50%)',
+            'radial-gradient(circle at 70% 30%, #ec489910 0%, transparent 50%)',
+            'radial-gradient(circle at 30% 30%, #3b82f610 0%, transparent 50%)',
           ],
         }}
         transition={{
@@ -162,7 +162,7 @@ const AnimatedBackground: React.FC = () => {
           repeat: Infinity,
           ease: 'easeInOut',
         }}
-        className="absolute top-1/3 left-1/3 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl"
       />
       
       <motion.div
@@ -176,7 +176,7 @@ const AnimatedBackground: React.FC = () => {
           ease: 'easeInOut',
           delay: 2,
         }}
-        className="absolute bottom-1/3 right-1/3 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
+        className="absolute bottom-1/2 right-1/2 transform translate-x-1/2 translate-y-1/2 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"
       />
 
       {/* Flowing lines */}
