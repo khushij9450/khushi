@@ -329,7 +329,7 @@ const About: React.FC = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Side - Enhanced Personal Image without rectangular box */}
+          {/* Right Side - Enhanced Personal Image with transparent background */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -362,7 +362,7 @@ const About: React.FC = () => {
               
               {/* Main image container - circular without rectangular box */}
               <motion.div 
-                className="relative w-80 h-80 mx-auto rounded-full overflow-hidden border-4 border-white/10 shadow-2xl"
+                className="relative w-80 h-80 mx-auto rounded-full overflow-hidden border-4 border-white/10 shadow-2xl bg-gradient-to-br from-purple-500/10 to-pink-500/10"
                 style={{ transformStyle: "preserve-3d" }}
                 animate={{
                   boxShadow: [
@@ -378,11 +378,11 @@ const About: React.FC = () => {
                   transition: { duration: 0.5 }
                 }}
               >
-                {/* Personal image */}
+                {/* Personal image with transparent background */}
                 <motion.img
-                  src="/public/image.png"
+                  src="/LS20250703184432-removebg-preview.png"
                   alt="Sarah Johnson"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-center"
                   initial={{ scale: 1.1, opacity: 0 }}
                   animate={{ scale: 1, opacity: 1 }}
                   transition={{ duration: 1, delay: 0.3 }}
@@ -394,12 +394,12 @@ const About: React.FC = () => {
                 
                 {/* Enhanced gradient overlay */}
                 <motion.div
-                  className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-transparent to-pink-500/20"
+                  className="absolute inset-0 bg-gradient-to-br from-purple-500/15 via-transparent to-pink-500/15"
                   animate={{
                     background: [
-                      'linear-gradient(45deg, rgba(168, 85, 247, 0.2), transparent, rgba(236, 72, 153, 0.2))',
-                      'linear-gradient(45deg, rgba(236, 72, 153, 0.2), transparent, rgba(6, 182, 212, 0.2))',
-                      'linear-gradient(45deg, rgba(6, 182, 212, 0.2), transparent, rgba(168, 85, 247, 0.2))'
+                      'linear-gradient(45deg, rgba(168, 85, 247, 0.15), transparent, rgba(236, 72, 153, 0.15))',
+                      'linear-gradient(45deg, rgba(236, 72, 153, 0.15), transparent, rgba(6, 182, 212, 0.15))',
+                      'linear-gradient(45deg, rgba(6, 182, 212, 0.15), transparent, rgba(168, 85, 247, 0.15))'
                     ]
                   }}
                   transition={{ duration: 8, repeat: Infinity }}
